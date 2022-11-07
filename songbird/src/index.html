@@ -7,9 +7,110 @@
       content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
     />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
+    <link rel="icon" href="./assets/bird-icon.png">
+    <title>Songbird</title>
   </head>
-  <body>
-    
+  <body class="body">
+    <header class="header">
+      <a class="logo-link" href="./index.html">
+        <div class="logo"></div>
+      </a>
+      <nav class="nav">
+        <ul class="nav-list">
+            <li><a href="./index.html" class="nav-link">Home</a></li>
+            <li><a class="nav-link game-link">Game</a></li>
+        </ul>
+    </nav>
+    </header>
+    <main class="main">
+      <section class="start-section">
+        <div class="button-wrapper">
+          <button class="play-button">Play game!</button>
+          <img class="leaf-image">
+          <img class="leaf-image">
+          <img class="leaf-image">
+          <img class="leaf-image">
+        </div>
+      </section>
+      <section class="game-section">
+        <div class="levels-wrapper">
+          <form class="levels-form">
+            <input class="level-input" type="radio" id="level-1" name="level-input" checked>
+            <label class="level-label" for="level-1">Разминка</label>
+            <input class="level-input" type="radio" id="level-2" name="level-input">
+            <label class="level-label" for="level-2">Воробьиные птицы</label>
+            <input class="level-input" type="radio" id="level-3" name="level-input">
+            <label class="level-label" for="level-3">Лесные птицы</label>
+            <input class="level-input" type="radio" id="level-4" name="level-input">
+            <label class="level-label" for="level-4">Певчие птицы</label>
+            <input class="level-input" type="radio" id="level-5" name="level-input">
+            <label class="level-label" for="level-5">Хищные птицы</label>
+            <input class="level-input" type="radio" id="level-6" name="level-input">
+            <label class="level-label" for="level-6">Морские птицы</label>
+          </form>
+        </div>
+        <div class="question-wrapper">
+          <div class="question-bird-image"></div>
+          <div class="player-wrapper">
+            <div class="question-bird-name">???</div>
+            <div class="question-song"></div>
+          </div>
+        </div>
+        <div class="block-wrapper">
+          <div class="answers-wrapper">
+            <form class="answers-form">
+              <input class="answer-input" type="radio" id="answer-1" name="answer-input">
+              <label class="answer-label" for="answer-1">
+                <div class="dot"></div>
+              </label>
+              <input class="answer-input" type="radio" id="answer-2" name="answer-input">
+              <label class="answer-label" for="answer-2">
+                <div class="dot"></div>
+              </label>
+              <input class="answer-input" type="radio" id="answer-3" name="answer-input">
+              <label class="answer-label" for="answer-3">
+                <div class="dot"></div>
+              </label>
+              <input class="answer-input" type="radio" id="answer-4" name="answer-input">
+              <label class="answer-label" for="answer-4">
+                <div class="dot"></div>
+              </label>
+              <input class="answer-input" type="radio" id="answer-5" name="answer-input">
+              <label class="answer-label" for="answer-5">
+                <div class="dot"></div>
+              </label>
+              <input class="answer-input" type="radio" id="answer-6" name="answer-input">
+              <label class="answer-label" for="answer-6">
+                <div class="dot"></div>
+              </label>
+            </form>
+          </div>
+          <div class="bird-description-wrapper">
+            <div class="bird-info-wrapper">
+              <div class="bird-image"></div>
+              <div class="bird-name-wrapper">
+                <div class="bird-name"></div>
+                <div class="bird-latin-name"></div>
+                <div class="bird-song"></div>
+              </div>
+            </div>
+            <div class="bird-description"></div>
+          </div>
+        </div>
+        
+
+      </section>
+      
+    </main>
+    <footer class="footer">
+      <a class="footer-link" href="https://github.com/mkoroleva5" target="_blank">
+        <img src="./assets/github.png" alt="GitHub" width="30" height="30" />
+      </a>
+      <div class="footer__data">2022</div>
+      <a class="footer-link" href="https://rs.school/js/" target="_blank">
+        <img src="./assets/rs_school_js.svg" alt="Rolling Scopes School" height="30" />
+      </a>
+    </footer>
   </body>
+  <script defer="defer" src="./index.js"></script></head>
 </html>
