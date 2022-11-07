@@ -28,7 +28,7 @@ gameLink.addEventListener('click', () => {
 const levelInputs = document.querySelectorAll('.level-input');
 const levelLabels = document.querySelectorAll('.level-label');
 const levelsForm = document.querySelector('.levels-form');
-
+/*
 function changeLevels() {
     for (let i = 0; i < levelInputs.length; i++) {
         levelLabels[i].style.backgroundColor = '#9dbd00';
@@ -36,16 +36,16 @@ function changeLevels() {
             levelLabels[i].style.backgroundColor = '#b7d428';
         }
     }
-}
+}*/
 
 if (levelInputs[0].checked) {
     levelLabels[0].style.backgroundColor = '#b7d428';
 }
-
+/*
 levelsForm.addEventListener('input', () => {
     changeLevels();
-});
-
+});*/
+/*
 for (let i = 0; i < 6; i++) {
     levelLabels[i].addEventListener('mouseover', () => {
         levelLabels[i].style.backgroundColor = '#b7d428';
@@ -53,38 +53,39 @@ for (let i = 0; i < 6; i++) {
     levelLabels[i].addEventListener('mouseout', () => {
         if (!levelInputs[i].checked) levelLabels[i].style.backgroundColor = '#9dbd00';
     });
-}
+}*/
 
 // ---------- Question ----------
 
 const questionImage = document.querySelector('.question-bird-image');
+const questionName = document.querySelector('.question-bird-name');
 const questionSong = document.querySelector('.question-song');
-
-import unknownBird from './assets/unknown-bird.jpg'
-questionImage.style.backgroundImage = `url('${unknownBird}')`;
-questionImage.style.border = '5px solid rgb(255, 250, 234, 0.5)';
+import unknownBird from './assets/unknown-bird.jpg';
 
 let answer;
-function getRandomSong() {
+function getRandomSong(levelNum) {
+    questionName.innerHTML = '???';
+    questionImage.style.backgroundImage = `url('${unknownBird}')`;
+    questionImage.style.border = '5px solid rgb(255, 250, 234, 0.5)';
     let randomNum = Math.floor(Math.random() * 6);
-    questionSong.innerHTML = `<audio class="question-audio" controls src="${birdsData[0][randomNum].audio}">`;
-    answer = birdsData[0].find(item => item.audio === birdsData[0][randomNum].audio);
+    questionSong.innerHTML = `<audio class="question-audio" controls src="${birdsData[levelNum][randomNum].audio}">`;
+    answer = birdsData[levelNum].find(item => item.audio === birdsData[levelNum][randomNum].audio);
     return answer;
 }
 
-getRandomSong();
+getRandomSong(0);
 
 // ---------- Answers ----------
 
 const answerInputs = document.querySelectorAll('.answer-input');
 const answerLabels = document.querySelectorAll('.answer-label');
 const answersForm = document.querySelector('.answers-form');
-const dots = document.querySelectorAll('.dot');
 const birdImage = document.querySelector('.bird-image');
 const birdName = document.querySelector('.bird-name');
 const birdLatinName = document.querySelector('.bird-latin-name');
 const birdDescription = document.querySelector('.bird-description');
 const birdSong = document.querySelector('.bird-song');
+const nextLevelButton = document.querySelector('.next-level-button');
 
 
 for (let i = 0; i < answerInputs.length; i++) {
@@ -98,12 +99,15 @@ for (let i = 0; i < answerInputs.length; i++) {
     });
 }
 
-function changeAnswers() {
+function selectAnswers() {
     for (let i = 0; i < answerInputs.length; i++) {
         if (answerInputs[i].checked) {
             if (answerLabels[i].textContent === answer.name) {
                 answerLabels[i].firstElementChild.style.backgroundColor = '#9dbd00';
-                answersForm.removeEventListener('input', changeAnswers);
+                questionImage.style.backgroundImage = `url('${answer.image}')`;
+                questionName.innerHTML = answer.name;
+                nextLevelButton.classList.add('active');
+                answersForm.removeEventListener('input', selectAnswers);
             } else {
                 answerLabels[i].firstElementChild.style.backgroundColor = '#f60056';
             }
@@ -111,26 +115,63 @@ function changeAnswers() {
     }
 }
 
-answersForm.addEventListener('input', changeAnswers);
+answersForm.addEventListener('input', selectAnswers);
 
-// ---------- Birds description ----------
-
-for (let i = 0; i < levelInputs.length; i++) {
-    if (levelInputs[i].checked) {
-        for (let j = 0; j < answerInputs.length; j++) {
-            answerLabels[j].innerHTML = `<div class="dot"></div>${birdsData[i][j].name}`;
-            answerLabels[j].addEventListener('click', () => {
-                let bird = birdsData[0].find(item => item.name === answerLabels[j].textContent);
-                birdImage.style.backgroundImage = `url('${bird.image}')`;
-                birdImage.style.border = '5px solid rgb(255, 250, 234, 0.5)';
-                birdName.innerHTML = bird.name;
-                birdName.style.borderBottom = '1px solid #d0d0d0';
-                birdLatinName.innerHTML = bird.species;
-                birdLatinName.style.borderBottom = '1px solid #d0d0d0';
-                birdDescription.innerHTML = bird.description;
-                birdSong.innerHTML = `<audio class="bird-audio" controls src="${bird.audio}">`
-            })
-            
+function changeLevels() {
+    for (let i = 0; i < levelInputs.length; i++) {
+        if (levelInputs[i].checked) {
+            levelLabels[i].style.backgroundColor = '#9dbd00';
+            levelLabels[i+1].style.backgroundColor = '#b7d428';
+            levelInputs[i+1].checked = 'true';
+            break;
         }
     }
 }
+
+nextLevelButton.addEventListener('click', () => {
+    if (nextLevelButton.classList.contains('active')) {
+        nextLevelButton.classList.remove('active');
+        changeLevels();
+        for (let i = 0; i < levelInputs.length; i++) {
+            if (levelInputs[i].checked) {
+                getRandomSong(i);
+                createAnswers();
+                answersForm.addEventListener('input', selectAnswers);
+            }
+        }
+        console.log(answer.name)
+    }
+})
+
+// ---------- Birds description ----------
+
+function createAnswers() {
+    for (let i = 0; i < levelInputs.length; i++) {
+        if (levelInputs[i].checked) {
+            for (let j = 0; j < answerInputs.length; j++) {
+                answerLabels[j].innerHTML = `<div class="dot"></div>${birdsData[i][j].name}`;
+                birdImage.style.backgroundImage = 'none';
+                birdImage.style.border = 'none';
+                birdName.innerHTML = '';
+                birdName.style.borderBottom = 'none';
+                birdLatinName.innerHTML = '';
+                birdLatinName.style.borderBottom = 'none';
+                birdDescription.innerHTML = '';
+                birdSong.innerHTML = '';
+
+                answerLabels[j].addEventListener('click', () => {
+                    let bird = birdsData[i].find(item => item.name === answerLabels[j].textContent);
+                    birdImage.style.backgroundImage = `url('${bird.image}')`;
+                    birdImage.style.border = '5px solid rgb(255, 250, 234, 0.5)';
+                    birdName.innerHTML = bird.name;
+                    birdName.style.borderBottom = '1px solid #d0d0d0';
+                    birdLatinName.innerHTML = bird.species;
+                    birdLatinName.style.borderBottom = '1px solid #d0d0d0';
+                    birdDescription.innerHTML = bird.description;
+                    birdSong.innerHTML = `<audio class="bird-audio" controls src="${bird.audio}">`;
+                });
+            }
+        }
+    }
+}
+createAnswers();
