@@ -4,7 +4,7 @@ console.log(birdsData)
 
 // ---------- Game start ----------
 
-const playButton = document.querySelector('.play-button');
+const gameButton = document.querySelector('.play-button');
 const homeLink = document.querySelector('.home-link');
 const gameLink = document.querySelector('.game-link');
 const galleryLink = document.querySelector('.gallery-link');
@@ -20,7 +20,7 @@ homeLink.addEventListener('click', () => {
     galleryPage.style.display = 'none';
 });
 
-playButton.addEventListener('click', () => {
+gameButton.addEventListener('click', () => {
     setTimeout(() => {
         startPage.style.display = 'none';
         galleryPage.style.display = 'none';
@@ -65,19 +65,94 @@ function changeLevels() {
         }
     }
 }
-/*
-levelsForm.addEventListener('input', () => {
-    changeLevels();
-});*/
-/*
-for (let i = 0; i < 6; i++) {
-    levelLabels[i].addEventListener('mouseover', () => {
-        levelLabels[i].style.backgroundColor = '#b7d428';
-    });
-    levelLabels[i].addEventListener('mouseout', () => {
-        if (!levelInputs[i].checked) levelLabels[i].style.backgroundColor = '#9dbd00';
-    });
-}*/
+
+// ----------Player----------
+
+const audio = document.querySelector('.audio');
+const playButton = document.querySelector('.play');
+let isPlay = false;
+
+function playTrack() {
+    if (!isPlay) {
+        audio.play();
+        isPlay = true;
+        playButton.classList.add('pause');
+    } else if (isPlay) {
+        audio.pause();
+        isPlay = false;
+        playButton.classList.remove('pause');
+    }
+}
+playButton.addEventListener('click', playTrack);
+
+audio.addEventListener('ended', () => {
+    isPlay = false;
+    playButton.classList.remove('pause');
+});
+
+const muteButton = document.querySelector('.mute-button');
+const volume = document.querySelector('.volume');
+const volumePercentage = document.querySelector('.volume-percentage');
+
+muteButton.addEventListener('click', () => {
+    muteButton.classList.toggle('muted');
+    if (audio.muted === false) audio.muted = true;
+    else audio.muted = false;
+});
+
+function setVolume() {
+    localStorage.setItem('volume-bar', volumePercentage.style.width);
+    localStorage.setItem('volume', audio.volume);
+}
+
+function getVolume() {
+    if (localStorage.getItem('volume-bar')) volumePercentage.style.width = localStorage.getItem('volume-bar');
+    if (localStorage.getItem('volume')) audio.volume = localStorage.getItem('volume');
+}
+
+window.addEventListener('beforeunload', setVolume);
+window.addEventListener('load', getVolume);
+
+async function changeVolume() {
+    const res = await getVolume();
+    volume.style.opacity = '1';
+    volume.addEventListener('click', e => {
+        const sliderWidth = window.getComputedStyle(volume).width;
+        const newVolume = e.offsetX / parseInt(sliderWidth);
+        audio.volume = newVolume;
+        volumePercentage.style.width = newVolume * 100 + '%';
+    }, false)
+}
+changeVolume();
+
+const timeline = document.querySelector('.timeline');
+const progressBar = document.querySelector('.progress-bar');
+const currentTime = document.querySelector('.current');
+const trackLength = document.querySelector('.length');
+
+timeline.addEventListener('click', e => {
+    const timelineWidth = window.getComputedStyle(timeline).width;
+    const timeToSeek = e.offsetX / parseInt(timelineWidth) * audio.duration;
+    audio.currentTime = timeToSeek;
+}, false);
+
+function getTimeCodeFromNum(num) {
+    let seconds = parseInt(num);
+    let minutes = parseInt(seconds / 60);
+    seconds -= minutes * 60;
+    const hours = parseInt(minutes / 60);
+    minutes -= hours * 60;
+
+    if (hours === 0) return `0${minutes}:${String(seconds % 60).padStart(2, 0)}`;
+        return `${String(hours).padStart(2, 0)}:0${minutes}:${String(
+            seconds % 60
+    ).padStart(2, 0)}`;
+}
+
+setInterval(() => {
+    progressBar.style.width = audio.currentTime / audio.duration * 100 + '%';
+    currentTime.textContent = getTimeCodeFromNum(audio.currentTime);
+}, 100);
 
 // ---------- Question ----------
 
@@ -93,7 +168,8 @@ function getRandomSong(levelNum) {
     questionImage.style.backgroundImage = `url('${unknownBird}')`;
     questionImage.style.border = '5px solid rgb(255, 250, 234, 0.5)';
     let randomNum = Math.floor(Math.random() * 6);
-    questionSong.innerHTML = `<audio class="question-audio" controls src="${birdsData[levelNum][randomNum].audio}">`;
+    questionSong.src = birdsData[levelNum][randomNum].audio;
+    trackLength.textContent = birdsData[levelNum][randomNum].duration;
     answer = birdsData[levelNum].find(item => item.audio === birdsData[levelNum][randomNum].audio);
     return answer;
 }
@@ -110,6 +186,7 @@ const birdName = document.querySelector('.bird-name');
 const birdLatinName = document.querySelector('.bird-latin-name');
 const birdDescription = document.querySelector('.bird-description');
 const birdSong = document.querySelector('.bird-song');
+const birdAudio = document.querySelector('.bird-audio');
 const nextLevelButton = document.querySelector('.next-level-button');
 
 
@@ -166,8 +243,6 @@ nextLevelButton.addEventListener('click', () => {
                 resultsPage.style.display = 'flex';
                 resultMessage.innerHTML = `Поздравляем!\nВы прошли викторину и набрали ${score.innerHTML} из 30 возможных баллов`
             }, 500);
-            
-            //----------дописать страницу результатов!----------------------
         }
     }
 })
@@ -186,7 +261,7 @@ function createAnswers() {
                 birdLatinName.innerHTML = '';
                 birdLatinName.style.borderBottom = 'none';
                 birdDescription.innerHTML = '';
-                birdSong.innerHTML = '';
+                birdSong.style.display = 'none';
 
                 answerLabels[j].addEventListener('click', () => {
                     if (levelInputs[i].checked) {
@@ -198,7 +273,8 @@ function createAnswers() {
                         birdLatinName.innerHTML = bird.species;
                         birdLatinName.style.borderBottom = '1px solid #d0d0d0';
                         birdDescription.innerHTML = bird.description;
-                        birdSong.innerHTML = `<audio class="bird-audio" controls src="${bird.audio}">`;
+                        birdSong.style.display = 'flex';
+                        birdAudio.src = bird.audio;
                     }
                 });
             }
@@ -292,4 +368,6 @@ function generateBirdCards(type) {
 }
 
 generateBirdCards(0);
+
+
 

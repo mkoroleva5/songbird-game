@@ -183,12 +183,132 @@
 }
 
 .player-wrapper {
+  width: 70%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
   margin-top: 10px;
   gap: 20px;
+}
+
+.player {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.time-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 67%;
+  margin-right: 20px;
+}
+
+.timeline {
+  display: flex;
+  height: 7px;
+  width: 100%;
+  background-color: rgb(255, 255, 255, 0.8);
+  border-radius: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.progress-bar {
+  display: flex;
+  background: #9dbd00;
+  width: 0%;
+  height: 100%;
+  border-radius: 10px;
+  transition: 0.25s;
+}
+
+.track-time {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  font-size: 14px;
+}
+
+.controls {
+  display: flex;
+  flex-direction: row;
+}
+
+.player-icon {
+  width: 40px;
+  height: 40px;
+  background-size: 32px 32px;
+  background-position: left center;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  border: 0;
+  outline: 0;
+  filter: invert(63%) sepia(14%) saturate(1273%) hue-rotate(33deg) brightness(157%) contrast(137%);
+  cursor: pointer;
+  transition: 0.2s;  
+}
+
+.player-icon:hover {
+  transform: scale(1.05);
+}
+
+.player-icon:active {
+  border: 0;
+  outline: 0;  
+  transform: scale(1);
+}
+
+.play {
+  width: 60px;
+  height: 40px;
+  background-size: 40px 40px;
+  background-image: url("../assets/play.svg");
+}
+
+.pause {
+  background-image: url("../assets/pause.svg");
+}
+
+.volume-controls {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.mute-button {
+  margin-right: 5px;
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+  background-image: url("../assets/unmuted.png");
+}
+
+.muted {
+  background-image: url("../assets/muted.png");
+}
+
+.volume {
+  height: 5px;
+  width: 70px;
+  cursor: pointer;
+  opacity: 0;
+  background: rgb(255, 255, 255, 0.8);
+  border-radius: 3px;
+}
+
+.volume:hover,
+.timeline:hover {
+  background: rgb(255, 255, 255, 1);
+}
+
+.volume-percentage {
+  height: 100%;
+  width: 100%;
+  background: #9dbd00;
+  border-radius: 3px;
 }
 
 .block-wrapper {
