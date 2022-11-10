@@ -17,20 +17,28 @@
       </a>
       <nav class="nav">
         <ul class="nav-list">
-            <li class="nav-link home-link">Главная</li>
-            <li class="nav-link game-link">Игра</li>
-            <li class="nav-link gallery-link">Галерея</li>
+            <li class="nav-link home-link"></li>
+            <li class="nav-link game-link"></li>
+            <li class="nav-link gallery-link"></li>
         </ul>
-    </nav>
-    <div class="score-wrapper">
-      <div class="score-text">Очки: </div>
-      <div class="score-number"></div>
-    </div>
+      </nav>
+      <div class="header-widget">
+        <div class="score-wrapper">
+          <div class="score-text"></div>
+          <div class="score-number"></div>
+        </div>
+        <form class="language-form">
+          <input class="language-input" type="radio" id="en" name="language" checked>
+          <label class="language-label" for="en">EN</label>
+          <input class="language-input" type="radio" id="ru" name="language">
+          <label class="language-label" for="ru">RU</label>
+        </form>
+      </div>
     </header>
     <main class="main">
       <section class="start-section">
         <div class="button-wrapper">
-          <button class="play-button">Играть!</button>
+          <button class="play-button"></button>
           <img class="leaf-image">
           <img class="leaf-image">
           <img class="leaf-image">
@@ -41,23 +49,21 @@
         <div class="levels-wrapper">
           <form class="levels-form">
             <input class="level-input" type="radio" id="level-1" name="level-input" checked disabled>
-            <label class="level-label" for="level-1">Разминка</label>
+            <label class="level-label" for="level-1"></label>
             <input class="level-input" type="radio" id="level-2" name="level-input" disabled>
-            <label class="level-label" for="level-2">Воробьиные птицы</label>
+            <label class="level-label" for="level-2"></label>
             <input class="level-input" type="radio" id="level-3" name="level-input" disabled>
-            <label class="level-label" for="level-3">Лесные птицы</label>
+            <label class="level-label" for="level-3"></label>
             <input class="level-input" type="radio" id="level-4" name="level-input" disabled>
-            <label class="level-label" for="level-4">Певчие птицы</label>
+            <label class="level-label" for="level-4"></label>
             <input class="level-input" type="radio" id="level-5" name="level-input" disabled>
-            <label class="level-label" for="level-5">Хищные птицы</label>
+            <label class="level-label" for="level-5"></label>
             <input class="level-input" type="radio" id="level-6" name="level-input" disabled>
-            <label class="level-label" for="level-6">Морские птицы</label>
+            <label class="level-label" for="level-6"></label>
           </form>
         </div>
         <div class="question-wrapper">
           <div class="question-bird-image"></div>
-
-
           <div class="player-wrapper">
             <div class="question-bird-name">???</div>
             <div class="player">
@@ -82,8 +88,6 @@
                 </div>
               </div>
             </div>
-
-
           </div>
         </div>
         <div class="block-wrapper">
@@ -150,22 +154,22 @@
             <div class="bird-description"></div>
           </div>
         </div>
-        <button class="next-level-button">Следующий уровень</button>
+        <button class="next-level-button"></button>
       </section>
       <section class="gallery-section">
         <form class="bird-types-form">
           <input class="bird-type-input" type="radio" id="bird-type-1" name="bird-type-input" checked>
-          <label class="bird-type-label" for="bird-type-1">Разминка</label>
+          <label class="bird-type-label" for="bird-type-1"></label>
           <input class="bird-type-input" type="radio" id="bird-type-2" name="bird-type-input">
-          <label class="bird-type-label" for="bird-type-2">Воробьиные птицы</label>
+          <label class="bird-type-label" for="bird-type-2"></label>
           <input class="bird-type-input" type="radio" id="bird-type-3" name="bird-type-input">
-          <label class="bird-type-label" for="bird-type-3">Лесные птицы</label>
+          <label class="bird-type-label" for="bird-type-3"></label>
           <input class="bird-type-input" type="radio" id="bird-type-4" name="bird-type-input">
-          <label class="bird-type-label" for="bird-type-4">Певчие птицы</label>
+          <label class="bird-type-label" for="bird-type-4"></label>
           <input class="bird-type-input" type="radio" id="bird-type-5" name="bird-type-input">
-          <label class="bird-type-label" for="bird-type-5">Хищные птицы</label>
+          <label class="bird-type-label" for="bird-type-5"></label>
           <input class="bird-type-input" type="radio" id="bird-type-6" name="bird-type-input">
-          <label class="bird-type-label" for="bird-type-6">Морские птицы</label>
+          <label class="bird-type-label" for="bird-type-6"></label>
         </form>
         <div class="gallery"></div>
     </section>

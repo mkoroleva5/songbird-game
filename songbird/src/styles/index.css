@@ -23,7 +23,8 @@
   padding: 20px;
   display: flex;
   flex-wrap: nowrap;
-  justify-content: space-around;
+  justify-content: space-between;
+  padding: 0 50px;
   align-items: center;
   background: rgb(255,253,245);
   background: linear-gradient(145deg, rgba(255,253,245,1) 0%, rgba(255,247,233,1) 39%, rgba(255,242,230,1) 70%, rgba(255,239,236,1) 100%);
@@ -68,9 +69,38 @@
   color: #4B9200;
 }
 
+.header-widget {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
 .score-wrapper {
   display: flex;
   gap: 10px;
+}
+
+.language-form {
+  display: flex;
+  width: 80px;
+  height: 40px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.language-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 100%;
+  font-size: 14px;
+  text-align: center;
+  color: white;
+  background-color: #9dbd00;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
 .main {
@@ -148,7 +178,8 @@
 }
 
 .level-input,
-.answer-input {
+.answer-input,
+.language-input {
   display: none;
 }
 
@@ -575,6 +606,10 @@
 
 .bird-card-active > .bird-song {
   width: 60%;
+}
+
+.bird-card-active > .bird-song > .player > .time-bar > .track-time {
+  margin-right: 10px;
 }
 
 .bird-card-active > .bird-description {
