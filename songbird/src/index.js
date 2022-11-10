@@ -186,7 +186,6 @@ const birdName = document.querySelector('.bird-name');
 const birdLatinName = document.querySelector('.bird-latin-name');
 const birdDescription = document.querySelector('.bird-description');
 const birdSong = document.querySelector('.bird-song');
-const birdAudio = document.querySelector('.bird-audio');
 const nextLevelButton = document.querySelector('.next-level-button');
 
 
@@ -274,7 +273,10 @@ function createAnswers() {
                         birdLatinName.style.borderBottom = '1px solid #d0d0d0';
                         birdDescription.innerHTML = bird.description;
                         birdSong.style.display = 'flex';
-                        birdAudio.src = bird.audio;
+                        birdSongAudio.src = bird.audio;
+                        birdTrackLength.textContent = bird.duration;
+                        birdSongisPlay = false;
+                        birdPlayButton.classList.remove('pause');
                     }
                 });
             }
@@ -346,11 +348,95 @@ function generateBirdCards(type) {
         birdCardLatinName.style.borderBottom = '1px solid #d0d0d0';
         birdCard.appendChild(birdCardLatinName);
 
-        let birdCardSong = document.createElement('audio');
-        birdCardSong.classList.add('bird-audio');
-        birdCardSong.setAttribute('controls', 'true');
-        birdCardSong.setAttribute('src', birdsData[type][i].audio);
+        let birdCardSong = document.createElement('div');
+        birdCardSong.classList.add('bird-song');
+        birdCardSong.innerHTML = `
+                  <div class="player">
+                    <audio class="audio bird-card-audio"></audio>
+                    <button class="play player-icon bird-card-play"></button>
+                    <div class="time-bar bird-card-time-bar">
+                      <div class="timeline bird-card-timeline">
+                        <div class="progress-bar bird-card-progress-bar"></div>
+                      </div>
+                      <div class="track-time">
+                        <div class="current bird-card-current">00:00</div>
+                        <div class="divider">/</div>
+                        <div class="length bird-card-track-length">00:00</div>
+                      </div>
+                    </div>
+                    <div class="controls">
+                      <div class="volume-controls">
+                        <button class="mute-button player-icon bird-card-mute-button"></button>
+                        <div class="volume bird-card-volume">
+                          <div class="volume-percentage bird-card-volume-percentage"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>`
         birdCard.appendChild(birdCardSong);
+        const birdCardAudio = document.querySelectorAll('.bird-card-audio');
+        birdCardAudio[i].src = birdsData[type][i].audio;
+        const birdCardTrackLength = document.querySelectorAll('.bird-card-track-length');
+        birdCardTrackLength[i].textContent = birdsData[type][i].duration;
+        const birdCardPlayButton = document.querySelectorAll('.bird-card-play');
+        let birdCardSongisPlay = false;
+        birdCardPlayButton[i].addEventListener('click', () => {
+            if (!birdCardSongisPlay) {
+                birdCardAudio[i].play();
+                birdCardSongisPlay = true;
+                birdCardPlayButton[i].classList.add('pause');
+            } else if (birdCardSongisPlay) {
+                birdCardAudio[i].pause();
+                birdCardSongisPlay = false;
+                birdCardPlayButton[i].classList.remove('pause');
+            }
+        });
+        birdCardAudio[i].addEventListener('ended', () => {
+            birdCardSongisPlay = false;
+            birdCardPlayButton[i].classList.remove('pause');
+        });
+
+        const birdMuteButtons = document.querySelectorAll('.bird-card-mute-button');
+        const birdVolumes = document.querySelectorAll('.bird-card-volume');
+        const birdVolumePercentages = document.querySelectorAll('.bird-card-volume-percentage');
+
+        birdMuteButtons[i].addEventListener('click', () => {
+            birdMuteButtons[i].classList.toggle('muted');
+            if (birdCardAudio[i].muted === false) birdCardAudio[i].muted = true;
+            else birdCardAudio[i].muted = false;
+        });
+
+        async function changeBirdCardVolume() {
+            birdVolumes[i].style.opacity = '1';
+            birdVolumes[i].addEventListener('click', e => {
+                const sliderWidth = window.getComputedStyle(birdVolumes[i]).width;
+                const newVolume = e.offsetX / parseInt(sliderWidth);
+                birdCardAudio[i].volume = newVolume;
+                birdVolumePercentages[i].style.width = newVolume * 100 + '%';
+            }, false)
+        }
+        changeBirdCardVolume();
+
+        const birdCardTimeline = document.querySelectorAll('.bird-card-timeline');
+        const birdCardProgressBar = document.querySelectorAll('.bird-card-progress-bar');
+        const birdCardCurrentTime = document.querySelectorAll('.bird-card-current');
+        
+        birdCardTimeline[i].addEventListener('click', e => {
+            const timelineWidth = window.getComputedStyle(birdCardTimeline[i]).width;
+            const timeToSeek = e.offsetX / parseInt(timelineWidth) * birdCardAudio[i].duration;
+            birdCardAudio[i].currentTime = timeToSeek;
+        }, false);
+        
+        setInterval(() => {
+            birdCardProgressBar[i].style.width = birdCardAudio[i].currentTime / birdCardAudio[i].duration * 100 + '%';
+            birdCardCurrentTime[i].textContent = getTimeCodeFromNum(birdCardAudio[i].currentTime);
+        }, 100);
+        
+
+
+
+
+
 
         let birdCardDescr = document.createElement('div');
         birdCardDescr.classList.add('bird-description');
@@ -359,15 +445,91 @@ function generateBirdCards(type) {
 
         birdCard.appendChild(birdCardDescr);
 
-        birdCard.addEventListener('click', () => {
-            birdCard.classList.toggle('bird-card-active');
-            if (!birdCard.classList.contains('bird-card-active')) birdCardDescr.style.display = 'none';
-            else birdCardDescr.style.display = 'block';
+        birdCard.addEventListener('click', (e) => {
+            const click = e.composedPath().includes(birdCardSong);
+            if ( !click ) {
+                birdCard.classList.toggle('bird-card-active');
+                if (!birdCard.classList.contains('bird-card-active')) birdCardDescr.style.display = 'none';
+                else birdCardDescr.style.display = 'block';
+            }
         });
     }   
 }
 
 generateBirdCards(0);
 
+// ---------- Bird-song player ----------
 
+const birdSongAudio = birdSong.querySelector('.audio');
+const birdPlayButton = birdSong.querySelector('.play');
+let birdSongisPlay = false;
+
+function playBirdTrack() {
+    if (!birdSongisPlay) {
+        birdSongAudio.play();
+        birdSongisPlay = true;
+        birdPlayButton.classList.add('pause');
+    } else if (birdSongisPlay) {
+        birdSongAudio.pause();
+        birdSongisPlay = false;
+        birdPlayButton.classList.remove('pause');
+    }
+}
+birdPlayButton.addEventListener('click', playBirdTrack);
+
+birdSongAudio.addEventListener('ended', () => {
+    birdSongisPlay = false;
+    birdPlayButton.classList.remove('pause');
+});
+
+const birdMuteButton = birdSong.querySelector('.mute-button');
+const birdVolume = birdSong.querySelector('.volume');
+const birdVolumePercentage = birdSong.querySelector('.volume-percentage');
+
+birdMuteButton.addEventListener('click', () => {
+    birdMuteButton.classList.toggle('muted');
+    if (birdSongAudio.muted === false) birdSongAudio.muted = true;
+    else birdSongAudio.muted = false;
+});
+
+function setBirdVolume() {
+    localStorage.setItem('bird-volume-bar', birdVolumePercentage.style.width);
+    localStorage.setItem('bird-volume', birdSongAudio.volume);
+}
+
+function getBirdVolume() {
+    if (localStorage.getItem('bird-volume-bar')) birdVolumePercentage.style.width = localStorage.getItem('bird-volume-bar');
+    if (localStorage.getItem('bird-volume')) birdSongAudio.volume = localStorage.getItem('bird-volume');
+}
+
+window.addEventListener('beforeunload', setBirdVolume);
+window.addEventListener('load', getBirdVolume);
+
+async function changeBirdVolume() {
+    const res = await getBirdVolume();
+    birdVolume.style.opacity = '1';
+    birdVolume.addEventListener('click', e => {
+        const sliderWidth = window.getComputedStyle(birdVolume).width;
+        const newVolume = e.offsetX / parseInt(sliderWidth);
+        birdSongAudio.volume = newVolume;
+        birdVolumePercentage.style.width = newVolume * 100 + '%';
+    }, false)
+}
+changeBirdVolume();
+
+const birdTimeline = birdSong.querySelector('.timeline');
+const birdProgressBar = birdSong.querySelector('.progress-bar');
+const birdCurrentTime = birdSong.querySelector('.current');
+const birdTrackLength = birdSong.querySelector('.length');
+
+birdTimeline.addEventListener('click', e => {
+    const timelineWidth = window.getComputedStyle(birdTimeline).width;
+    const timeToSeek = e.offsetX / parseInt(timelineWidth) * birdSongAudio.duration;
+    birdSongAudio.currentTime = timeToSeek;
+}, false);
+
+setInterval(() => {
+    birdProgressBar.style.width = birdSongAudio.currentTime / birdSongAudio.duration * 100 + '%';
+    birdCurrentTime.textContent = getTimeCodeFromNum(birdSongAudio.currentTime);
+}, 100);
 
