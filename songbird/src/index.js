@@ -12,6 +12,7 @@ const startPage = document.querySelector('.start-section');
 const gamePage = document.querySelector('.game-section');
 const galleryPage = document.querySelector('.gallery-section');
 const resultsPage = document.querySelector('.results-section');
+const taskDescription = document.querySelector('.task-description');
 
 homeLink.addEventListener('click', () => {
     startPage.style.display = 'flex';
@@ -32,6 +33,7 @@ gameButton.addEventListener('click', () => {
         score.innerHTML = 0;
         getRandomSong(0);
         createAnswers();
+        answersForm.addEventListener('input', selectAnswers);
     }, 500);  
 });
 
@@ -50,7 +52,6 @@ galleryLink.addEventListener('click', () => {
     gamePage.style.display = 'none';
     galleryPage.style.display = 'flex';
 });
-
 
 // ---------- Levels ----------
 
@@ -179,6 +180,7 @@ function getRandomSong(levelNum) {
     if (localStorage.getItem('language') === 'en') answer = birdsDataEn[levelNum].find(item => item.audio === birdsDataEn[levelNum][randomNum].audio);
     if (localStorage.getItem('language') === 'ru') answer = birdsData[levelNum].find(item => item.audio === birdsData[levelNum][randomNum].audio);
     return answer;
+    
 }
 
 getRandomSong(0);
@@ -194,7 +196,6 @@ const birdLatinName = document.querySelector('.bird-latin-name');
 const birdDescription = document.querySelector('.bird-description');
 const birdSong = document.querySelector('.bird-song');
 const nextLevelButton = document.querySelector('.next-level-button');
-
 
 for (let i = 0; i < answerInputs.length; i++) {
     answerLabels[i].addEventListener('mouseover', () => {
@@ -214,9 +215,12 @@ const rightSound = new Audio(rightSoundSource);
 
 let counter = 6;
 function selectAnswers() {
+    taskDescription.style.width = '0';
+    taskDescription.innerHTML = '';
     for (let i = 0; i < answerInputs.length; i++) {
         if (answerInputs[i].checked && answerLabels[i].firstElementChild.style.backgroundColor === 'rgb(208, 208, 208)') {
             counter--;
+            console.log(answerLabels[i].textContent)
             if (answerLabels[i].textContent === answer.name) {
                 answerLabels[i].firstElementChild.style.backgroundColor = '#9dbd00';
                 questionImage.style.backgroundImage = `url('${answer.image}')`;
@@ -224,22 +228,24 @@ function selectAnswers() {
                 score.innerHTML = +score.innerHTML + counter;
                 counter = 6;
                 rightSound.play();
+                questionSong.pause();
+                isPlay = false;
+                playButton.classList.remove('pause');
                 nextLevelButton.classList.add('active');
                 answersForm.removeEventListener('input', selectAnswers);
             } else {
-                console.log(i)
-                console.log(answerLabels[i].firstElementChild.style.backgroundColor)
                 wrongSound.currentTime = 0;
                 wrongSound.play();
                 answerLabels[i].firstElementChild.style.backgroundColor = '#f60056';               
             }
-        }
-    }
+        }       
+    }   
 }
 
 answersForm.addEventListener('input', selectAnswers);
 
 nextLevelButton.addEventListener('click', () => {
+    answersForm.addEventListener('input', selectAnswers);
     if (nextLevelButton.classList.contains('active')) {
         if (!levelInputs[5].checked) {
             nextLevelButton.classList.remove('active');
@@ -250,7 +256,6 @@ nextLevelButton.addEventListener('click', () => {
                 if (levelInputs[i].checked) {
                     getRandomSong(i);
                     createAnswers();
-                    answersForm.addEventListener('input', selectAnswers);
                 }
             }
             console.log(answer.name)
@@ -269,6 +274,9 @@ nextLevelButton.addEventListener('click', () => {
 // ---------- Birds description ----------
 
 function createAnswers() {
+    taskDescription.style.width = '100%';
+    if (localStorage.getItem('language') === 'en') taskDescription.innerHTML = '<p>1. Listen to the player</p><p>2. Select a bird from the list</p>';
+    if (localStorage.getItem('language') === 'ru') taskDescription.innerHTML = '<p>1. Послушайте плеер</p><p>2. Выберите птицу из списка</p>';
     for (let i = 0; i < levelInputs.length; i++) {
         if (levelInputs[i].checked) {
             for (let j = 0; j < answerInputs.length; j++) {
