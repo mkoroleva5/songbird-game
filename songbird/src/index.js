@@ -26,6 +26,12 @@ gameButton.addEventListener('click', () => {
         galleryPage.style.display = 'none';
         resultsPage.style.display = 'none';
         gamePage.style.display = 'flex';
+        levelInputs[0].checked = 'true';
+        levelLabels.forEach(item => item.style.backgroundColor = '#9dbd00');
+        levelLabels[0].style.backgroundColor = '#b7d428';
+        score.innerHTML = 0;
+        getRandomSong(0);
+        createAnswers();
     }, 500);  
 });
 
