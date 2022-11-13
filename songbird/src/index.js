@@ -1,6 +1,8 @@
 import "./styles/index.css"
 import birdsData from "./birds.js"
 import birdsDataEn from "./birds-en.js"
+import leafImage from "./assets/leaf.png"
+import flyingBirdsImage from "./assets/birds_PNG49.png"
 
 // ---------- Game start ----------
 
@@ -13,20 +15,39 @@ const gamePage = document.querySelector('.game-section');
 const galleryPage = document.querySelector('.gallery-section');
 const resultsPage = document.querySelector('.results-section');
 const taskDescription = document.querySelector('.task-description');
+const leaves = document.querySelectorAll('.leaf-image');
+leaves.forEach(item => item.src = leafImage);
+const flyingBirds = document.querySelector('.flying-birds');
+flyingBirds.src = flyingBirdsImage;
+homeLink.style.color = '#9dbd00';
 
 homeLink.addEventListener('click', () => {
     startPage.style.display = 'flex';
     resultsPage.style.display = 'none';
     gamePage.style.display = 'none';
+    gamePage.style.transform = 'translateX(100%)';
     galleryPage.style.display = 'none';
+    homeLink.style.color = '#9dbd00';
+    gameLink.style.color = '#332c2c';
+    galleryLink.style.color = '#332c2c';
 });
 
 gameButton.addEventListener('click', () => {
+    flyingBirds.style.display = 'flex';
+    flyingBirds.style.transform = 'translateX(150%)';
+    homeLink.style.color = '#332c2c';
+    gameLink.style.color = '#9dbd00';
+    galleryLink.style.color = '#332c2c';
+    startPage.classList.add('flip');
+    setTimeout(() => {
+        gamePage.style.display = 'flex';
+        flyingBirds.style.transform = 'translateX(-150%)';
+    }, 500);
     setTimeout(() => {
         startPage.style.display = 'none';
         galleryPage.style.display = 'none';
         resultsPage.style.display = 'none';
-        gamePage.style.display = 'flex';
+        gamePage.style.transform = 'translateX(0)';
         levelInputs[0].checked = 'true';
         levelLabels.forEach(item => item.style.backgroundColor = '#9dbd00');
         levelLabels[0].style.backgroundColor = '#b7d428';
@@ -34,22 +55,33 @@ gameButton.addEventListener('click', () => {
         getRandomSong(0);
         createAnswers();
         answersForm.addEventListener('input', selectAnswers);
-    }, 500);  
+        startPage.classList.remove('flip');
+    }, 2000); 
+    setTimeout(() => {
+        flyingBirds.style.display = 'none';
+        flyingBirds.style.transform = 'translateX(150%)';
+    }, 3000); 
 });
 
 gameLink.addEventListener('click', () => {
-    setTimeout(() => {
-        startPage.style.display = 'none';
-        resultsPage.style.display = 'none';
-        galleryPage.style.display = 'none';
-        gamePage.style.display = 'flex';
-    }, 500);  
+    homeLink.style.color = '#332c2c';
+    gameLink.style.color = '#9dbd00';
+    galleryLink.style.color = '#332c2c';
+    startPage.style.display = 'none';
+    resultsPage.style.display = 'none';
+    galleryPage.style.display = 'none';
+    gamePage.style.display = 'flex';
+    gamePage.style.transform = 'translateX(0)';
 });
 
 galleryLink.addEventListener('click', () => {
+    homeLink.style.color = '#332c2c';
+    gameLink.style.color = '#332c2c';
+    galleryLink.style.color = '#9dbd00';
     startPage.style.display = 'none';
     resultsPage.style.display = 'none';
     gamePage.style.display = 'none';
+    gamePage.style.transform = 'translateX(100%)';
     galleryPage.style.display = 'flex';
 });
 
@@ -227,6 +259,7 @@ function selectAnswers() {
                 questionName.innerHTML = answer.name;
                 score.innerHTML = +score.innerHTML + counter;
                 counter = 6;
+                rightSound.currentTime = 0;
                 rightSound.play();
                 questionSong.pause();
                 isPlay = false;
@@ -245,9 +278,9 @@ function selectAnswers() {
 answersForm.addEventListener('input', selectAnswers);
 
 nextLevelButton.addEventListener('click', () => {
-    answersForm.addEventListener('input', selectAnswers);
     if (nextLevelButton.classList.contains('active')) {
         if (!levelInputs[5].checked) {
+            answersForm.addEventListener('input', selectAnswers);
             nextLevelButton.classList.remove('active');
             changeLevels();
             isPlay = false;
@@ -264,8 +297,29 @@ nextLevelButton.addEventListener('click', () => {
             setTimeout(() => {
                 gamePage.style.display = 'none';
                 resultsPage.style.display = 'flex';
-                if (localStorage.getItem('language') === 'en') resultMessage.innerHTML = `Congratulations!\nYou completed the quiz and scored ${score.innerHTML} out of 30 possible points`;
-                if (localStorage.getItem('language') === 'ru') resultMessage.innerHTML = `Поздравляем!\nВы прошли викторину и набрали ${score.innerHTML} из 30 возможных баллов`;
+                if (localStorage.getItem('language') === 'en') resultMessage.innerHTML = `<div>Congratulations!</div><div>You completed the quiz and scored ${score.innerHTML} out of 30 possible points</div><div class="restart-button">Play again</div>`;
+                if (localStorage.getItem('language') === 'ru') resultMessage.innerHTML = `<div>Поздравляем!</div><div>Вы прошли викторину и набрали ${score.innerHTML} из 30 возможных баллов</div><div class="restart-button">Играть снова</div>`;
+                const restartButton = document.querySelector('.restart-button');
+                restartButton.addEventListener('click', () => {
+                    setTimeout(() => {
+                        startPage.style.display = 'none';
+                        resultsPage.style.display = 'none';
+                        gamePage.style.display = 'flex';
+                        gamePage.style.transform = 'translateX(0)';
+                        galleryPage.style.display = 'none';
+                        homeLink.style.color = '#332c2c';
+                        gameLink.style.color = '#9dbd00';
+                        galleryLink.style.color = '#332c2c';
+                        levelInputs[0].checked = 'true';
+                        levelLabels.forEach(item => item.style.backgroundColor = '#9dbd00');
+                        levelLabels[0].style.backgroundColor = '#b7d428';
+                        score.innerHTML = 0;
+                        getRandomSong(0);
+                        createAnswers();
+                        nextLevelButton.classList.remove('active');
+                        answersForm.addEventListener('input', selectAnswers);
+                    }, 500);  
+                });
             }, 500);
         }
     }
@@ -570,6 +624,7 @@ const enLang = document.getElementById('en');
 const ruLang = document.getElementById('ru');
 const languageInputs = document.querySelectorAll('.language-input');
 const languageLabels = document.querySelectorAll('.language-label');
+const startDescription = document.querySelector('.start-description');
 
 const enLevels = ['Warm-up', 'Sparrow birds', 'Forest birds', 'Songbirds', 'Predator birds', 'Sea birds'];
 const ruLevels = ['Разминка', 'Воробьиные птицы', 'Лесные птицы', 'Певчие птицы', 'Хищные птицы', 'Морские птицы'];
@@ -608,6 +663,7 @@ function changeLanguage() {
             }
             if (birdTypeInputs[i].checked) generateBirdCards(i, birdsDataEn);
         }
+        startDescription.innerHTML = `<div>Welcome to Songbird!</div><div>In this game you will have to get acquainted with the singing of different birds and try to guess them all.</div><div>Let's start?</div>`
         resultMessage.innerHTML = `Congratulations!\nYou completed the quiz and scored ${score.innerHTML} out of 30 possible points`;
     }
     if (lang === 'ru') {
@@ -633,6 +689,7 @@ function changeLanguage() {
             }
             if (birdTypeInputs[i].checked) generateBirdCards(i, birdsData);
         }
+        startDescription.innerHTML = '<div>Добро пожаловать в игру Songbird!</div><div>В этой игре вам предстоит познакомиться с пением разных птиц и попытаться угадать их все.</div><div>Начнем?</div>'
         resultMessage.innerHTML = `Поздравляем!\nВы прошли викторину и набрали ${score.innerHTML} из 30 возможных баллов`;
     }
 }
@@ -665,5 +722,7 @@ window.addEventListener('load', () => {
     getLanguage();
     changeLanguage();
 });
+
+changeLanguage();
 
 
