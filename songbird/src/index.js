@@ -201,21 +201,31 @@ for (let i = 0; i < answerInputs.length; i++) {
     });
 }
 
+import wrongSoundSource from './assets/wrong.mp3';
+import rightSoundSource from './assets/right.mp3';
+const wrongSound = new Audio(wrongSoundSource);
+const rightSound = new Audio(rightSoundSource);
+
 let counter = 6;
 function selectAnswers() {
-    counter--;
     for (let i = 0; i < answerInputs.length; i++) {
-        if (answerInputs[i].checked) {
+        if (answerInputs[i].checked && answerLabels[i].firstElementChild.style.backgroundColor === 'rgb(208, 208, 208)') {
+            counter--;
             if (answerLabels[i].textContent === answer.name) {
                 answerLabels[i].firstElementChild.style.backgroundColor = '#9dbd00';
                 questionImage.style.backgroundImage = `url('${answer.image}')`;
                 questionName.innerHTML = answer.name;
                 score.innerHTML = +score.innerHTML + counter;
                 counter = 6;
+                rightSound.play();
                 nextLevelButton.classList.add('active');
                 answersForm.removeEventListener('input', selectAnswers);
             } else {
-                answerLabels[i].firstElementChild.style.backgroundColor = '#f60056';
+                console.log(i)
+                console.log(answerLabels[i].firstElementChild.style.backgroundColor)
+                wrongSound.currentTime = 0;
+                wrongSound.play();
+                answerLabels[i].firstElementChild.style.backgroundColor = '#f60056';               
             }
         }
     }
@@ -258,6 +268,7 @@ function createAnswers() {
             for (let j = 0; j < answerInputs.length; j++) {
                 if (localStorage.getItem('language') === 'en') answerLabels[j].innerHTML = `<div class="dot"></div>${birdsDataEn[i][j].name}`;
                 if (localStorage.getItem('language') === 'ru') answerLabels[j].innerHTML = `<div class="dot"></div>${birdsData[i][j].name}`;
+                answerLabels[j].firstElementChild.style.backgroundColor = 'rgb(208, 208, 208)';
                 birdImage.style.backgroundImage = 'none';
                 birdImage.style.border = 'none';
                 birdName.innerHTML = '';
