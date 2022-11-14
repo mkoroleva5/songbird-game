@@ -302,8 +302,28 @@ nextLevelButton.addEventListener('click', () => {
             setTimeout(() => {
                 gamePage.style.display = 'none';
                 resultsPage.style.display = 'flex';
-                if (localStorage.getItem('language') === 'en') resultMessage.innerHTML = `<div>Congratulations!</div><div>You completed the quiz and scored ${score.innerHTML} out of 30 possible points</div>`;
-                if (localStorage.getItem('language') === 'ru') resultMessage.innerHTML = `<div>Поздравляем!</div><div>Вы прошли викторину и набрали ${score.innerHTML} из 30 возможных баллов</div>`;
+                if (localStorage.getItem('language') === 'en') {
+                    if (score.innerHTML > 29) {
+                        resultMessage.innerHTML = `<div>Wow!</div><div>You did great and scored ${score.innerHTML} out of 30 possible points!</div>`;
+                    }
+                    if (score.innerHTML < 30 && score.innerHTML > 15 ) {
+                        resultMessage.innerHTML = `<div>Congratulations!</div><div>You completed the quiz and scored ${score.innerHTML} out of 30 possible points</div>`;
+                    }
+                    if (score.innerHTML <= 15 ) {
+                        resultMessage.innerHTML = `<div>Nice!</div><div>You completed the quiz and scored ${score.innerHTML} out of 30 possible points</div><div>Let's try again!</div>`;
+                    }
+                }
+                if (localStorage.getItem('language') === 'ru') {
+                    if (score.innerHTML > 29) {
+                        resultMessage.innerHTML = `<div>Ого!</div><div>Вы великолепны и набрали ${score.innerHTML} из 30 возможных баллов</div>`;
+                    }
+                    if (score.innerHTML < 30 && score.innerHTML > 15 ) {
+                        resultMessage.innerHTML = `<div>Поздравляем!</div><div>Вы прошли викторину и набрали ${score.innerHTML} из 30 возможных баллов</div>`;
+                    }
+                    if (score.innerHTML <= 15 ) {
+                        resultMessage.innerHTML = `<div>Неплохо!</div><div>Вы прошли викторину и набрали ${score.innerHTML} из 30 возможных баллов</div><div>Попробуйте еще раз!</div>`;
+                    }
+                }
                 restartButton.addEventListener('click', () => {
                     setTimeout(() => {
                         startPage.style.display = 'none';
@@ -320,6 +340,9 @@ nextLevelButton.addEventListener('click', () => {
                         score.innerHTML = 0;
                         getRandomSong(0);
                         createAnswers();
+                        for (let i = 0; i < answerInputs.length; i++) {
+                            answerInputs[i].checked = false;
+                        }
                         nextLevelButton.classList.remove('active');
                         answersForm.addEventListener('input', selectAnswers);
                     }, 500);  
@@ -669,7 +692,15 @@ function changeLanguage() {
             if (birdTypeInputs[i].checked) generateBirdCards(i, birdsDataEn);
         }
         startDescription.innerHTML = `<div>Welcome to Songbird!</div><div>In this game you will have to get acquainted with the singing of different birds and try to guess them all.</div><div>Let's start?</div>`
-        resultMessage.innerHTML = `Congratulations!\nYou completed the quiz and scored ${score.innerHTML} out of 30 possible points`;
+        if (score.innerHTML > 29) {
+            resultMessage.innerHTML = `<div>Wow!</div><div>You did great and scored ${score.innerHTML} out of 30 possible points!</div>`;
+        }
+        if (score.innerHTML < 30 && score.innerHTML > 15 ) {
+            resultMessage.innerHTML = `<div>Congratulations!</div><div>You completed the quiz and scored ${score.innerHTML} out of 30 possible points</div>`;
+        }
+        if (score.innerHTML <= 15 ) {
+            resultMessage.innerHTML = `<div>Nice!</div><div>You completed the quiz and scored ${score.innerHTML} out of 30 possible points</div><div>Let's try again!</div>`;
+        }
     }
     if (lang === 'ru') {
         languageLabels[1].style.backgroundColor = '#b7d428';
@@ -696,8 +727,15 @@ function changeLanguage() {
             if (birdTypeInputs[i].checked) generateBirdCards(i, birdsData);
         }
         startDescription.innerHTML = '<div>Добро пожаловать в игру Songbird!</div><div>В этой игре вам предстоит познакомиться с пением разных птиц и попытаться угадать их все.</div><div>Начнем?</div>'
-        resultMessage.innerHTML = `Поздравляем!\nВы прошли викторину и набрали ${score.innerHTML} из 30 возможных баллов`;
-    }
+        if (score.innerHTML > 29) {
+            resultMessage.innerHTML = `<div>Ого!</div><div>Вы великолепны и набрали ${score.innerHTML} из 30 возможных баллов</div>`;
+        }
+        if (score.innerHTML < 30 && score.innerHTML > 15 ) {
+            resultMessage.innerHTML = `<div>Поздравляем!</div><div>Вы прошли викторину и набрали ${score.innerHTML} из 30 возможных баллов</div>`;
+        }
+        if (score.innerHTML <= 15 ) {
+            resultMessage.innerHTML = `<div>Неплохо!</div><div>Вы прошли викторину и набрали ${score.innerHTML} из 30 возможных баллов</div><div>Попробуйте еще раз!</div>`;
+        }    }
 }
 
 function setLanguage() {
