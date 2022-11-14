@@ -2,11 +2,11 @@ import "./styles/index.css"
 import birdsData from "./birds.js"
 import birdsDataEn from "./birds-en.js"
 import leafImage from "./assets/leaf.png"
-import flyingBirdsImage from "./assets/birds_PNG49.png"
 
 // ---------- Game start ----------
 
 const gameButton = document.querySelector('.play-button');
+const restartButton = document.querySelector('.restart-button');
 const homeLink = document.querySelector('.home-link');
 const gameLink = document.querySelector('.game-link');
 const galleryLink = document.querySelector('.gallery-link');
@@ -18,7 +18,6 @@ const taskDescription = document.querySelector('.task-description');
 const leaves = document.querySelectorAll('.leaf-image');
 leaves.forEach(item => item.src = leafImage);
 const flyingBirds = document.querySelector('.flying-birds');
-flyingBirds.src = flyingBirdsImage;
 homeLink.style.color = '#9dbd00';
 
 homeLink.addEventListener('click', () => {
@@ -35,6 +34,7 @@ homeLink.addEventListener('click', () => {
 gameButton.addEventListener('click', () => {
     flyingBirds.style.display = 'flex';
     flyingBirds.style.transform = 'translateX(150%)';
+    flyingBirds.classList.add('fly');
     homeLink.style.color = '#332c2c';
     gameLink.style.color = '#9dbd00';
     galleryLink.style.color = '#332c2c';
@@ -54,12 +54,16 @@ gameButton.addEventListener('click', () => {
         score.innerHTML = 0;
         getRandomSong(0);
         createAnswers();
+        for (let i = 0; i < answerInputs.length; i++) {
+            answerInputs[i].checked = false;
+        }
         answersForm.addEventListener('input', selectAnswers);
         startPage.classList.remove('flip');
-    }, 2000); 
+    }, 1000); 
     setTimeout(() => {
         flyingBirds.style.display = 'none';
         flyingBirds.style.transform = 'translateX(150%)';
+        flyingBirds.classList.remove('fly');
     }, 3000); 
 });
 
@@ -286,6 +290,7 @@ nextLevelButton.addEventListener('click', () => {
             isPlay = false;
             playButton.classList.remove('pause');
             for (let i = 0; i < levelInputs.length; i++) {
+                answerInputs[i].checked = false;
                 if (levelInputs[i].checked) {
                     getRandomSong(i);
                     createAnswers();
@@ -297,9 +302,8 @@ nextLevelButton.addEventListener('click', () => {
             setTimeout(() => {
                 gamePage.style.display = 'none';
                 resultsPage.style.display = 'flex';
-                if (localStorage.getItem('language') === 'en') resultMessage.innerHTML = `<div>Congratulations!</div><div>You completed the quiz and scored ${score.innerHTML} out of 30 possible points</div><div class="restart-button">Play again</div>`;
-                if (localStorage.getItem('language') === 'ru') resultMessage.innerHTML = `<div>Поздравляем!</div><div>Вы прошли викторину и набрали ${score.innerHTML} из 30 возможных баллов</div><div class="restart-button">Играть снова</div>`;
-                const restartButton = document.querySelector('.restart-button');
+                if (localStorage.getItem('language') === 'en') resultMessage.innerHTML = `<div>Congratulations!</div><div>You completed the quiz and scored ${score.innerHTML} out of 30 possible points</div>`;
+                if (localStorage.getItem('language') === 'ru') resultMessage.innerHTML = `<div>Поздравляем!</div><div>Вы прошли викторину и набрали ${score.innerHTML} из 30 возможных баллов</div>`;
                 restartButton.addEventListener('click', () => {
                     setTimeout(() => {
                         startPage.style.display = 'none';
@@ -648,6 +652,7 @@ function changeLanguage() {
         galleryLink.textContent = 'Gallery';
         scoreText.textContent = 'Score:';
         gameButton.textContent = 'Play game!';
+        restartButton.textContent = 'Play again';
         for (let i = 0; i < levelLabels.length; i++) {
             levelLabels[i].textContent = enLevels[i];
             birdTypeLabels[i].textContent = enLevels[i];
@@ -674,6 +679,7 @@ function changeLanguage() {
         galleryLink.textContent = 'Галерея';
         scoreText.textContent = 'Очки:';
         gameButton.textContent = 'Играть!';
+        restartButton.textContent = 'Играть снова';
         for (let i = 0; i < levelLabels.length; i++) {
             levelLabels[i].textContent = ruLevels[i];
             birdTypeLabels[i].textContent = ruLevels[i];

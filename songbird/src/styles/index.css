@@ -114,7 +114,7 @@
   display: flex;
   justify-content: space-around;
   background: rgb(255,223,153);
-  background: linear-gradient(145deg, rgba(255,223,153,1) 0%, rgba(255,207,182,1) 42%, rgba(255,190,190,1) 69%, rgba(255,162,190,1) 100%);
+  background: linear-gradient(145deg, rgb(238, 203, 233) 0%, rgb(238, 198, 216) 30%, rgba(255,190,190,1) 69%, rgb(255, 159, 188) 100%);
   position: relative;
   overflow-x: hidden;
 }
@@ -137,9 +137,66 @@
 .flying-birds {
   display: none;
   position: absolute;
-  height: 80%;
-  transition:  all 1.5s ease-in;
+  margin: 0 auto;
+  width: 60%;
+  height: 60%;
   transform: translateX(150%);
+  background-image: url('../assets/bird-1.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.fly {
+  animation-name: fly;
+  animation-duration: 2s;
+}
+
+@keyframes fly {
+  0% {
+    transform: translateX(150%);
+    background-image: url('../assets/bird-1.png');
+  }
+  10% {
+    transform: translateX(120%);
+    background-image: url('../assets/bird-1.png');
+  }
+  20% {
+    transform: translateX(90%);
+    background-image: url('../assets/bird-2.png');
+  }
+  30% {
+    transform: translateX(60%);
+    background-image: url('../assets/bird-3.png');
+  }
+  40% {
+    transform: translateX(30%);
+    background-image: url('../assets/bird-4.png');
+  }
+  50% {
+    transform: translateX(0);
+    background-image: url('../assets/bird-5.png');
+  }
+  60% {
+    transform: translateX(-30%);
+    background-image: url('../assets/bird-6.png');
+  }
+  70% {
+    transform: translateX(-60%);
+    background-image: url('../assets/bird-7.png');
+  }
+  80% {
+    transform: translateX(-90%);
+    background-image: url('../assets/bird-8.png');
+  }
+  90% {
+    transform: translateX(-120%);
+    background-image: url('../assets/bird-8.png');
+  }
+  100% {
+    transform: translateX(-150%);
+    background-image: url('../assets/bird-8.png');
+  }
+
 }
 
 .flip {
@@ -173,10 +230,6 @@
   z-index: 10;
 }
 
-.restart-button {
-  margin-top: 20px;
-}
-
 .play-button:hover,
 .restart-button:hover {
   background-color:#b7d428;
@@ -194,7 +247,7 @@
 
 .button-wrapper {
   position: relative;
-  margin-top: 30px;
+  margin-top: 40px;
 }
 
 .leaf-image {
@@ -681,7 +734,7 @@
 
 .bird-card-active {
   width: 70%;
-  height: 78%;
+  height: 94%;
   align-items: flex-start;
   padding: 30px;
   position: absolute;
@@ -717,6 +770,7 @@
 
 .results-section {
   display: none;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
