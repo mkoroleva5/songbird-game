@@ -11,191 +11,207 @@
     <title>Songbird</title>
   </head>
   <body class="body">
-    <header class="header">
-      <a class="logo-link" href="./index.html">
-        <div class="logo"></div>
-      </a>
-      <nav class="nav">
-        <ul class="nav-list">
-            <li class="nav-link home-link"></li>
-            <li class="nav-link game-link"></li>
-            <li class="nav-link gallery-link"></li>
-        </ul>
-      </nav>
-      <div class="header-widget">
-        <div class="score-wrapper">
-          <div class="score-text"></div>
-          <div class="score-number"></div>
+    <div class="dark"></div>
+    <div class="wrapper">
+      <header class="header">
+        <div class="header__menu">
+          <a class="logo-link" href="./index.html">
+            <div class="logo"></div>
+          </a>
+          <nav class="nav">
+            <ul class="nav-list">
+                <li class="nav-link home-link"></li>
+                <li class="nav-link game-link"></li>
+                <li class="nav-link gallery-link"></li>
+            </ul>
+          </nav>
         </div>
-        <form class="language-form">
-          <input class="language-input" type="radio" id="en" name="language" checked>
-          <label class="language-label" for="en">EN</label>
-          <input class="language-input" type="radio" id="ru" name="language">
-          <label class="language-label" for="ru">RU</label>
-        </form>
-      </div>
-    </header>
-    <main class="main">
-      <section class="start-section">
-        <div class="start-description"></div>
-        <div class="button-wrapper">
-          <img class="leaf-image">
-          <img class="leaf-image">
-          <img class="leaf-image">
-          <img class="leaf-image">
-          <button class="play-button"></button>
-        </div>
-      </section>
-      <div class="flying-birds"></div>
-      <section class="game-section">
-        <div class="levels-wrapper">
-          <form class="levels-form">
-            <input class="level-input" type="radio" id="level-1" name="level-input" checked disabled>
-            <label class="level-label" for="level-1"></label>
-            <input class="level-input" type="radio" id="level-2" name="level-input" disabled>
-            <label class="level-label" for="level-2"></label>
-            <input class="level-input" type="radio" id="level-3" name="level-input" disabled>
-            <label class="level-label" for="level-3"></label>
-            <input class="level-input" type="radio" id="level-4" name="level-input" disabled>
-            <label class="level-label" for="level-4"></label>
-            <input class="level-input" type="radio" id="level-5" name="level-input" disabled>
-            <label class="level-label" for="level-5"></label>
-            <input class="level-input" type="radio" id="level-6" name="level-input" disabled>
-            <label class="level-label" for="level-6"></label>
+        <div class="header__widget">
+          <div class="score-wrapper">
+            <div class="score-text"></div>
+            <div class="score-number"></div>
+          </div>
+          <form class="language-form">
+            <input class="language-input" type="radio" id="en" name="language" checked>
+            <label class="language-label" for="en">EN</label>
+            <input class="language-input" type="radio" id="ru" name="language">
+            <label class="language-label" for="ru">RU</label>
           </form>
+          <div class="header__menu_button">
+            <span></span>
+          </div>
         </div>
-        <div class="question-wrapper">
-          <div class="question-bird-image"></div>
-          <div class="player-wrapper">
-            <div class="question-bird-name">???</div>
-            <div class="player">
-              <audio class="audio question-song"></audio>
-              <button class="play player-icon"></button>
-              <div class="time-bar">
-                <div class="timeline">
-                  <div class="progress-bar"></div>
-                </div>
-                <div class="track-time">
-                  <div class="current">00:00</div>
-                  <div class="divider">/</div>
-                  <div class="length">00:00</div>
-                </div>
-              </div>
-              <div class="controls">
-                <div class="volume-controls">
-                  <button class="mute-button player-icon"></button>
-                  <div class="volume">
-                    <div class="volume-percentage"></div>
+        <div class="header__menu_burger">
+          <div class="burger__close-button">
+            <span class="close-line"></span>
+            <span class="close-line"></span>
+        </div>
+        </div>
+      </header>
+      <main class="main">
+        <section class="start-section">
+          <div class="start-description"></div>
+          <div class="button-wrapper">
+            <img class="leaf-image">
+            <img class="leaf-image">
+            <img class="leaf-image">
+            <img class="leaf-image">
+            <button class="play-button"></button>
+          </div>
+        </section>
+        <div class="flying-birds"></div>
+        <section class="game-section">
+          <div class="game-wrapper">
+            <div class="levels-wrapper">
+              <form class="levels-form">
+                <input class="level-input" type="radio" id="level-1" name="level-input" checked disabled>
+                <label class="level-label" for="level-1"></label>
+                <input class="level-input" type="radio" id="level-2" name="level-input" disabled>
+                <label class="level-label" for="level-2"></label>
+                <input class="level-input" type="radio" id="level-3" name="level-input" disabled>
+                <label class="level-label" for="level-3"></label>
+                <input class="level-input" type="radio" id="level-4" name="level-input" disabled>
+                <label class="level-label" for="level-4"></label>
+                <input class="level-input" type="radio" id="level-5" name="level-input" disabled>
+                <label class="level-label" for="level-5"></label>
+                <input class="level-input" type="radio" id="level-6" name="level-input" disabled>
+                <label class="level-label" for="level-6"></label>
+              </form>
+            </div>
+            <div class="question-wrapper">
+              <div class="question-bird-image"></div>
+              <div class="player-wrapper">
+                <div class="question-bird-name">???</div>
+                <div class="player">
+                  <audio class="audio question-song"></audio>
+                  <button class="play player-icon"></button>
+                  <div class="time-bar">
+                    <div class="timeline">
+                      <div class="progress-bar"></div>
+                    </div>
+                    <div class="track-time">
+                      <div class="current">00:00</div>
+                      <div class="divider">/</div>
+                      <div class="length">00:00</div>
+                    </div>
+                  </div>
+                  <div class="controls">
+                    <div class="volume-controls">
+                      <button class="mute-button player-icon"></button>
+                      <div class="volume">
+                        <div class="volume-percentage"></div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="block-wrapper">
-          <div class="answers-wrapper">
-            <form class="answers-form">
-              <input class="answer-input" type="radio" id="answer-1" name="answer-input">
-              <label class="answer-label" for="answer-1">
-                <div class="dot"></div>
-              </label>
-              <input class="answer-input" type="radio" id="answer-2" name="answer-input">
-              <label class="answer-label" for="answer-2">
-                <div class="dot"></div>
-              </label>
-              <input class="answer-input" type="radio" id="answer-3" name="answer-input">
-              <label class="answer-label" for="answer-3">
-                <div class="dot"></div>
-              </label>
-              <input class="answer-input" type="radio" id="answer-4" name="answer-input">
-              <label class="answer-label" for="answer-4">
-                <div class="dot"></div>
-              </label>
-              <input class="answer-input" type="radio" id="answer-5" name="answer-input">
-              <label class="answer-label" for="answer-5">
-                <div class="dot"></div>
-              </label>
-              <input class="answer-input" type="radio" id="answer-6" name="answer-input">
-              <label class="answer-label" for="answer-6">
-                <div class="dot"></div>
-              </label>
-            </form>
-          </div>
-          <div class="bird-description-wrapper">
-            <div class="bird-info-wrapper">
-              <div class="task-description"></div>
-              <div class="bird-image"></div>
-              <div class="bird-name-wrapper">
-                <div class="bird-name"></div>
-                <div class="bird-latin-name"></div>
-                <div class="bird-song">
-                  <div class="player">
-                    <audio class="audio bird-audio"></audio>
-                    <button class="play player-icon"></button>
-                    <div class="time-bar">
-                      <div class="timeline">
-                        <div class="progress-bar"></div>
+          <div class="block-wrapper">
+            <div class="answers-wrapper">
+              <form class="answers-form">
+                <input class="answer-input" type="radio" id="answer-1" name="answer-input">
+                <label class="answer-label" for="answer-1">
+                  <div class="dot"></div>
+                </label>
+                <input class="answer-input" type="radio" id="answer-2" name="answer-input">
+                <label class="answer-label" for="answer-2">
+                  <div class="dot"></div>
+                </label>
+                <input class="answer-input" type="radio" id="answer-3" name="answer-input">
+                <label class="answer-label" for="answer-3">
+                  <div class="dot"></div>
+                </label>
+                <input class="answer-input" type="radio" id="answer-4" name="answer-input">
+                <label class="answer-label" for="answer-4">
+                  <div class="dot"></div>
+                </label>
+                <input class="answer-input" type="radio" id="answer-5" name="answer-input">
+                <label class="answer-label" for="answer-5">
+                  <div class="dot"></div>
+                </label>
+                <input class="answer-input" type="radio" id="answer-6" name="answer-input">
+                <label class="answer-label" for="answer-6">
+                  <div class="dot"></div>
+                </label>
+              </form>
+            </div>
+            <div class="bird-description-wrapper">
+              <div class="bird-info-wrapper">
+                <div class="task-description"></div>
+                <div class="bird-image"></div>
+                <div class="bird-name-wrapper">
+                  <div class="bird-name"></div>
+                  <div class="bird-latin-name"></div>
+                  <div class="bird-song">
+                    <div class="player">
+                      <audio class="audio bird-audio"></audio>
+                      <button class="play player-icon"></button>
+                      <div class="time-bar">
+                        <div class="timeline">
+                          <div class="progress-bar"></div>
+                        </div>
+                        <div class="track-time">
+                          <div class="current">00:00</div>
+                          <div class="divider">/</div>
+                          <div class="length">00:00</div>
+                        </div>
                       </div>
-                      <div class="track-time">
-                        <div class="current">00:00</div>
-                        <div class="divider">/</div>
-                        <div class="length">00:00</div>
-                      </div>
-                    </div>
-                    <div class="controls">
-                      <div class="volume-controls">
-                        <button class="mute-button player-icon"></button>
-                        <div class="volume">
-                          <div class="volume-percentage"></div>
+                      <div class="controls">
+                        <div class="volume-controls">
+                          <button class="mute-button player-icon"></button>
+                          <div class="volume">
+                            <div class="volume-percentage"></div>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
+              <div class="bird-description"></div>
             </div>
-            <div class="bird-description"></div>
           </div>
-        </div>
-        <button class="next-level-button"></button>
+          <button class="next-level-button"></button>
+        </section>
+        <section class="gallery-section">
+          <form class="bird-types-form">
+            <input class="bird-type-input" type="radio" id="bird-type-1" name="bird-type-input" checked>
+            <label class="bird-type-label" for="bird-type-1"></label>
+            <input class="bird-type-input" type="radio" id="bird-type-2" name="bird-type-input">
+            <label class="bird-type-label" for="bird-type-2"></label>
+            <input class="bird-type-input" type="radio" id="bird-type-3" name="bird-type-input">
+            <label class="bird-type-label" for="bird-type-3"></label>
+            <input class="bird-type-input" type="radio" id="bird-type-4" name="bird-type-input">
+            <label class="bird-type-label" for="bird-type-4"></label>
+            <input class="bird-type-input" type="radio" id="bird-type-5" name="bird-type-input">
+            <label class="bird-type-label" for="bird-type-5"></label>
+            <input class="bird-type-input" type="radio" id="bird-type-6" name="bird-type-input">
+            <label class="bird-type-label" for="bird-type-6"></label>
+          </form>
+          <div class="gallery"></div>
       </section>
-      <section class="gallery-section">
-        <form class="bird-types-form">
-          <input class="bird-type-input" type="radio" id="bird-type-1" name="bird-type-input" checked>
-          <label class="bird-type-label" for="bird-type-1"></label>
-          <input class="bird-type-input" type="radio" id="bird-type-2" name="bird-type-input">
-          <label class="bird-type-label" for="bird-type-2"></label>
-          <input class="bird-type-input" type="radio" id="bird-type-3" name="bird-type-input">
-          <label class="bird-type-label" for="bird-type-3"></label>
-          <input class="bird-type-input" type="radio" id="bird-type-4" name="bird-type-input">
-          <label class="bird-type-label" for="bird-type-4"></label>
-          <input class="bird-type-input" type="radio" id="bird-type-5" name="bird-type-input">
-          <label class="bird-type-label" for="bird-type-5"></label>
-          <input class="bird-type-input" type="radio" id="bird-type-6" name="bird-type-input">
-          <label class="bird-type-label" for="bird-type-6"></label>
-        </form>
-        <div class="gallery"></div>
-    </section>
-      <section class="results-section">
-        <div class="result"></div>
-        <div class="button-wrapper">
-          <img class="leaf-image">
-          <img class="leaf-image">
-          <img class="leaf-image">
-          <img class="leaf-image">
-          <button class="restart-button"></button>
-        </div>
-      </section>
-    </main>
-    <footer class="footer">
-      <a class="footer-link" href="https://github.com/mkoroleva5" target="_blank">
-        <img src="./assets/github.png" alt="GitHub" width="30" height="30" />
-      </a>
-      <div class="footer__data">2022</div>
-      <a class="footer-link" href="https://rs.school/js/" target="_blank">
-        <img src="./assets/rs_school_js.svg" alt="Rolling Scopes School" height="30" />
-      </a>
-    </footer>
+        <section class="results-section">
+          <div class="result"></div>
+          <div class="button-wrapper">
+            <img class="leaf-image">
+            <img class="leaf-image">
+            <img class="leaf-image">
+            <img class="leaf-image">
+            <button class="restart-button"></button>
+          </div>
+        </section>
+      </main>
+      <footer class="footer">
+        <a class="footer__link" href="https://github.com/mkoroleva5" target="_blank">
+          <img src="./assets/github.png" alt="GitHub" width="30" height="30" />
+        </a>
+        <div class="footer__data">2022</div>
+        <a class="footer__link" href="https://rs.school/js/" target="_blank">
+          <img src="./assets/rs_school_js.svg" alt="Rolling Scopes School" height="30" />
+        </a>
+      </footer>  
+    </div>
   </body>
   <script defer="defer" src="./index.js"></script></head>
 </html>

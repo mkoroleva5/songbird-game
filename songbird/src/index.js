@@ -374,6 +374,8 @@ function createAnswers() {
                 birdSong.style.display = 'none';
 
                 answerLabels[j].addEventListener('click', () => {
+                    taskDescription.style.width = '0';
+                    taskDescription.innerHTML = '';
                     if (levelInputs[i].checked) {
                         let bird;
                         if (localStorage.getItem('language') === 'en') bird = birdsDataEn[i].find(item => item.name === answerLabels[j].textContent);
@@ -768,5 +770,42 @@ window.addEventListener('load', () => {
 });
 
 changeLanguage();
+
+// ---------- Burger menu ----------
+
+const burgerMenuButton = document.querySelector('.header__menu_button');
+const burgerCloseButton = document.querySelector('.burger__close-button');
+const burgerMenu = document.querySelector('.header__menu_burger');
+const nav = document.querySelector('.nav');
+const dark = document.querySelector('.dark');
+
+burgerMenuButton.addEventListener('click', () => {
+    dark.style.display = 'block';
+    burgerMenu.style.transform = 'translateX(0)';
+    setTimeout(() => {
+        nav.style.transform = 'translateX(0)';
+    }, 200);
+});
+
+if (window.innerWidth < '650px') {
+    nav.addEventListener('click', () => {
+        dark.style.display = 'none';
+        burgerMenu.style.transform = 'translateX(150%)';
+        nav.style.transform = 'translateX(300%)';
+    });
+}
+
+
+dark.addEventListener('click', () => {
+    dark.style.display = 'none';
+    burgerMenu.style.transform = 'translateX(150%)';
+    nav.style.transform = 'translateX(300%)';
+});
+
+burgerCloseButton.addEventListener('click', () => {
+    dark.style.display = 'none';
+    burgerMenu.style.transform = 'translateX(150%)';
+    nav.style.transform = 'translateX(300%)';
+});
 
 
