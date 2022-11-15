@@ -787,13 +787,24 @@ burgerMenuButton.addEventListener('click', () => {
     }, 200);
 });
 
-if (window.innerWidth < '650px') {
+if (window.innerWidth < 650) {
     nav.addEventListener('click', () => {
         dark.style.display = 'none';
         burgerMenu.style.transform = 'translateX(150%)';
         nav.style.transform = 'translateX(300%)';
     });
 }
+
+window.addEventListener('resize', () => {
+    if (window.innerWidth >= 650) {
+        nav.style.transform = 'translateX(0)';
+    }
+    if (window.innerWidth < 650) {
+        dark.style.display = 'none';
+        burgerMenu.style.transform = 'translateX(150%)';
+        nav.style.transform = 'translateX(300%)';
+    }
+})
 
 
 dark.addEventListener('click', () => {

@@ -46,7 +46,7 @@
   height: 100%;
   display: flex;
   align-items: center;
-  gap: 30px;  
+  gap: 80px;  
 }
 
 .header__menu_button,
@@ -840,6 +840,10 @@
 }
 
 @media (max-width: 1050px) {
+
+  .header__menu {
+    gap: 50px;  
+  }
 
   .question-wrapper {
     height: 100px;
