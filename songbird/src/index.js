@@ -260,7 +260,6 @@ function selectAnswers() {
     for (let i = 0; i < answerInputs.length; i++) {
         if (answerInputs[i].checked && answerLabels[i].firstElementChild.style.backgroundColor === 'rgb(208, 208, 208)') {
             counter--;
-            console.log(answerLabels[i].textContent)
             if (answerLabels[i].textContent === answer.name) {
                 answerLabels[i].firstElementChild.style.backgroundColor = '#9dbd00';
                 questionImage.style.backgroundImage = `url('${answer.image}')`;
@@ -301,9 +300,7 @@ nextLevelButton.addEventListener('click', () => {
                     createAnswers();
                 }
             }
-            console.log(answer.name)
         } else {
-            console.log('win')
             setTimeout(() => {
                 gamePage.style.display = 'none';
                 resultsPage.style.display = 'flex';
@@ -775,12 +772,10 @@ window.addEventListener('load', () => {
 });
 
 if (!localStorage.getItem('language')) {
-    console.log(111)
-    if (languageLabels[0].checked) localStorage.setItem('language', 'en');
-    if (languageLabels[1].checked) localStorage.setItem('language', 'ru');
+    if (languageInputs[0].checked) localStorage.setItem('language', 'en');
+    if (languageInputs[1].checked) localStorage.setItem('language', 'ru');
     changeLanguage();
 }
-
 
 // ---------- Burger menu ----------
 
