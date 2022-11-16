@@ -829,6 +829,11 @@
 
 @media (max-width: 1150px) {
 
+  .flying-birds {
+    width: 500px;
+    height: 500px;
+  }
+
   .bird-description-wrapper {
     width: 80%;
   }
@@ -998,7 +1003,7 @@
   }
 
   .answer-label {
-    height: 30px;
+    height: 35px;
   }
 
   .bird-description-wrapper {
@@ -1116,7 +1121,7 @@
 
 }
 
-@media (max-width: 550px) {
+@media (max-width: 560px) {
 
   .gallery {
     grid-template-columns: 300px;
@@ -1185,6 +1190,10 @@
   .bird-description-wrapper {
     height: 300px;
   } 
+
+  .bird-latin-name {
+    height: 35px;
+  }
 
   
   .bird-song > .player > .time-bar {

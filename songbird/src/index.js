@@ -21,6 +21,7 @@ const flyingBirds = document.querySelector('.flying-birds');
 homeLink.style.color = '#9dbd00';
 
 homeLink.addEventListener('click', () => {
+    document.title = 'Home | Songbird';
     startPage.style.display = 'flex';
     resultsPage.style.display = 'none';
     gamePage.style.display = 'none';
@@ -28,10 +29,11 @@ homeLink.addEventListener('click', () => {
     galleryPage.style.display = 'none';
     homeLink.style.color = '#9dbd00';
     gameLink.style.color = '#332c2c';
-    galleryLink.style.color = '#332c2c';
+    galleryLink.style.color = '#332c2c';    
 });
 
 gameButton.addEventListener('click', () => {
+    document.title = 'Game | Songbird';
     flyingBirds.style.display = 'flex';
     flyingBirds.style.transform = 'translateX(150%)';
     flyingBirds.classList.add('fly');
@@ -68,6 +70,7 @@ gameButton.addEventListener('click', () => {
 });
 
 gameLink.addEventListener('click', () => {
+    document.title = 'Game | Songbird';
     homeLink.style.color = '#332c2c';
     gameLink.style.color = '#9dbd00';
     galleryLink.style.color = '#332c2c';
@@ -79,6 +82,7 @@ gameLink.addEventListener('click', () => {
 });
 
 galleryLink.addEventListener('click', () => {
+    document.title = 'Gallery | Songbird';
     homeLink.style.color = '#332c2c';
     gameLink.style.color = '#332c2c';
     galleryLink.style.color = '#9dbd00';
@@ -290,6 +294,7 @@ nextLevelButton.addEventListener('click', () => {
             isPlay = false;
             playButton.classList.remove('pause');
             for (let i = 0; i < levelInputs.length; i++) {
+                birdSongAudio.pause();
                 answerInputs[i].checked = false;
                 if (levelInputs[i].checked) {
                     getRandomSong(i);
