@@ -113,6 +113,135 @@ function changeLevels() {
     }
 }
 
+// ---------- Translation ----------
+
+const languageForm = document.querySelector('.language-form');
+const enLang = document.getElementById('en');
+const ruLang = document.getElementById('ru');
+const languageInputs = document.querySelectorAll('.language-input');
+const languageLabels = document.querySelectorAll('.language-label');
+const startDescription = document.querySelector('.start-description');
+
+const enLevels = ['Warm-up', 'Sparrow birds', 'Forest birds', 'Songbirds', 'Predator birds', 'Sea birds'];
+const ruLevels = ['Разминка', 'Воробьиные птицы', 'Лесные птицы', 'Певчие птицы', 'Хищные птицы', 'Морские птицы'];
+
+for (let i = 0; i < languageLabels.length; i++) {
+    languageLabels[i].addEventListener('mouseover', () => {
+        languageLabels[i].style.backgroundColor = '#b7d428';
+    });
+    languageLabels[i].addEventListener('mouseout', () => {
+        if (!languageInputs[i].checked) languageLabels[i].style.backgroundColor = '#9dbd00';
+    });
+}
+
+function changeLanguage() {
+    let lang = localStorage.getItem('language');
+    if (lang === 'en') {
+        languageLabels[0].style.backgroundColor = '#b7d428';
+        languageLabels[1].style.backgroundColor = '#9dbd00';
+        homeLink.textContent = 'Home';
+        gameLink.textContent = 'Game';
+        galleryLink.textContent = 'Gallery';
+        scoreText.textContent = 'Score:';
+        gameButton.textContent = 'Play game!';
+        restartButton.textContent = 'Play again';
+        for (let i = 0; i < levelLabels.length; i++) {
+            levelLabels[i].textContent = enLevels[i];
+            birdTypeLabels[i].textContent = enLevels[i];
+        }
+        nextLevelButton.textContent = 'Next level';
+        createAnswers();
+        counter = 6;
+        for (let i = 0; i < levelInputs.length; i++) {
+            if (levelInputs[i].checked) {
+                questionSong.src = birdsDataEn[i][answer.id - 1].audio;
+                trackLength.textContent = birdsDataEn[i][answer.id - 1].duration;
+                answer = birdsDataEn[i].find(item => item.audio === birdsDataEn[i][answer.id - 1].audio);
+            }
+            if (birdTypeInputs[i].checked) generateBirdCards(i, birdsDataEn);
+        }
+        startDescription.innerHTML = `<div>Welcome to Songbird!</div><div>In this game you will have to get acquainted with the singing of different birds and try to guess them all.</div><div>Let's start?</div>`
+        if (score.innerHTML > 29) {
+            resultMessage.innerHTML = `<div>Wow!</div><div>You did great and scored ${score.innerHTML} out of 30 possible points!</div>`;
+        }
+        if (score.innerHTML < 30 && score.innerHTML > 15 ) {
+            resultMessage.innerHTML = `<div>Congratulations!</div><div>You completed the quiz and scored ${score.innerHTML} out of 30 possible points</div>`;
+        }
+        if (score.innerHTML <= 15 ) {
+            resultMessage.innerHTML = `<div>Nice!</div><div>You completed the quiz and scored ${score.innerHTML} out of 30 possible points</div><div>Let's try again!</div>`;
+        }
+    }
+    if (lang === 'ru') {
+        languageLabels[1].style.backgroundColor = '#b7d428';
+        languageLabels[0].style.backgroundColor = '#9dbd00';
+        homeLink.textContent = 'Главная';
+        gameLink.textContent = 'Игра';
+        galleryLink.textContent = 'Галерея';
+        scoreText.textContent = 'Очки:';
+        gameButton.textContent = 'Играть!';
+        restartButton.textContent = 'Играть снова';
+        for (let i = 0; i < levelLabels.length; i++) {
+            levelLabels[i].textContent = ruLevels[i];
+            birdTypeLabels[i].textContent = ruLevels[i];
+        }
+        nextLevelButton.textContent = 'Следующий уровень';
+        createAnswers();
+        counter = 6;
+        for (let i = 0; i < levelInputs.length; i++) {
+            if (levelInputs[i].checked) {
+                questionSong.src = birdsData[i][answer.id - 1].audio;
+                trackLength.textContent = birdsData[i][answer.id - 1].duration;
+                answer = birdsData[i].find(item => item.audio === birdsData[i][answer.id - 1].audio);
+            }
+            if (birdTypeInputs[i].checked) generateBirdCards(i, birdsData);
+        }
+        startDescription.innerHTML = '<div>Добро пожаловать в игру Songbird!</div><div>В этой игре вам предстоит познакомиться с пением разных птиц и попытаться угадать их все.</div><div>Начнем?</div>'
+        if (score.innerHTML > 29) {
+            resultMessage.innerHTML = `<div>Ого!</div><div>Вы великолепны и набрали ${score.innerHTML} из 30 возможных баллов</div>`;
+        }
+        if (score.innerHTML < 30 && score.innerHTML > 15 ) {
+            resultMessage.innerHTML = `<div>Поздравляем!</div><div>Вы прошли викторину и набрали ${score.innerHTML} из 30 возможных баллов</div>`;
+        }
+        if (score.innerHTML <= 15 ) {
+            resultMessage.innerHTML = `<div>Неплохо!</div><div>Вы прошли викторину и набрали ${score.innerHTML} из 30 возможных баллов</div><div>Попробуйте еще раз!</div>`;
+        }    }
+}
+
+function setLanguage() {
+    if (enLang.checked) {
+        localStorage.setItem('language', 'en');
+    }
+    if (ruLang.checked)  {
+        localStorage.setItem('language', 'ru');
+    }
+}
+
+function getLanguage() {
+    if (localStorage.getItem('language') === 'en') {
+        enLang.checked = 'true';
+    }
+    if (localStorage.getItem('language') === 'ru') {
+        ruLang.checked = 'true';
+    }
+}
+
+languageForm.addEventListener('input', () => {
+    setLanguage();
+    changeLanguage();
+});
+
+window.addEventListener('beforeunload', setLanguage);
+window.addEventListener('load', () => {
+    getLanguage();
+    changeLanguage();
+});
+
+if (!localStorage.getItem('language')) {
+    if (languageInputs[0].checked) localStorage.setItem('language', 'en');
+    if (languageInputs[1].checked) localStorage.setItem('language', 'ru');
+    changeLanguage();
+}
+
 // ---------- Question player ----------
 
 const audio = document.querySelector('.audio');
@@ -647,135 +776,6 @@ setInterval(() => {
     birdProgressBar.style.width = birdSongAudio.currentTime / birdSongAudio.duration * 100 + '%';
     birdCurrentTime.textContent = getTimeCodeFromNum(birdSongAudio.currentTime);
 }, 100);
-
-// ---------- Translation ----------
-
-const languageForm = document.querySelector('.language-form');
-const enLang = document.getElementById('en');
-const ruLang = document.getElementById('ru');
-const languageInputs = document.querySelectorAll('.language-input');
-const languageLabels = document.querySelectorAll('.language-label');
-const startDescription = document.querySelector('.start-description');
-
-const enLevels = ['Warm-up', 'Sparrow birds', 'Forest birds', 'Songbirds', 'Predator birds', 'Sea birds'];
-const ruLevels = ['Разминка', 'Воробьиные птицы', 'Лесные птицы', 'Певчие птицы', 'Хищные птицы', 'Морские птицы'];
-
-for (let i = 0; i < languageLabels.length; i++) {
-    languageLabels[i].addEventListener('mouseover', () => {
-        languageLabels[i].style.backgroundColor = '#b7d428';
-    });
-    languageLabels[i].addEventListener('mouseout', () => {
-        if (!languageInputs[i].checked) languageLabels[i].style.backgroundColor = '#9dbd00';
-    });
-}
-
-function changeLanguage() {
-    let lang = localStorage.getItem('language');
-    if (lang === 'en') {
-        languageLabels[0].style.backgroundColor = '#b7d428';
-        languageLabels[1].style.backgroundColor = '#9dbd00';
-        homeLink.textContent = 'Home';
-        gameLink.textContent = 'Game';
-        galleryLink.textContent = 'Gallery';
-        scoreText.textContent = 'Score:';
-        gameButton.textContent = 'Play game!';
-        restartButton.textContent = 'Play again';
-        for (let i = 0; i < levelLabels.length; i++) {
-            levelLabels[i].textContent = enLevels[i];
-            birdTypeLabels[i].textContent = enLevels[i];
-        }
-        nextLevelButton.textContent = 'Next level';
-        createAnswers();
-        counter = 6;
-        for (let i = 0; i < levelInputs.length; i++) {
-            if (levelInputs[i].checked) {
-                questionSong.src = birdsDataEn[i][answer.id - 1].audio;
-                trackLength.textContent = birdsDataEn[i][answer.id - 1].duration;
-                answer = birdsDataEn[i].find(item => item.audio === birdsDataEn[i][answer.id - 1].audio);
-            }
-            if (birdTypeInputs[i].checked) generateBirdCards(i, birdsDataEn);
-        }
-        startDescription.innerHTML = `<div>Welcome to Songbird!</div><div>In this game you will have to get acquainted with the singing of different birds and try to guess them all.</div><div>Let's start?</div>`
-        if (score.innerHTML > 29) {
-            resultMessage.innerHTML = `<div>Wow!</div><div>You did great and scored ${score.innerHTML} out of 30 possible points!</div>`;
-        }
-        if (score.innerHTML < 30 && score.innerHTML > 15 ) {
-            resultMessage.innerHTML = `<div>Congratulations!</div><div>You completed the quiz and scored ${score.innerHTML} out of 30 possible points</div>`;
-        }
-        if (score.innerHTML <= 15 ) {
-            resultMessage.innerHTML = `<div>Nice!</div><div>You completed the quiz and scored ${score.innerHTML} out of 30 possible points</div><div>Let's try again!</div>`;
-        }
-    }
-    if (lang === 'ru') {
-        languageLabels[1].style.backgroundColor = '#b7d428';
-        languageLabels[0].style.backgroundColor = '#9dbd00';
-        homeLink.textContent = 'Главная';
-        gameLink.textContent = 'Игра';
-        galleryLink.textContent = 'Галерея';
-        scoreText.textContent = 'Очки:';
-        gameButton.textContent = 'Играть!';
-        restartButton.textContent = 'Играть снова';
-        for (let i = 0; i < levelLabels.length; i++) {
-            levelLabels[i].textContent = ruLevels[i];
-            birdTypeLabels[i].textContent = ruLevels[i];
-        }
-        nextLevelButton.textContent = 'Следующий уровень';
-        createAnswers();
-        counter = 6;
-        for (let i = 0; i < levelInputs.length; i++) {
-            if (levelInputs[i].checked) {
-                questionSong.src = birdsData[i][answer.id - 1].audio;
-                trackLength.textContent = birdsData[i][answer.id - 1].duration;
-                answer = birdsData[i].find(item => item.audio === birdsData[i][answer.id - 1].audio);
-            }
-            if (birdTypeInputs[i].checked) generateBirdCards(i, birdsData);
-        }
-        startDescription.innerHTML = '<div>Добро пожаловать в игру Songbird!</div><div>В этой игре вам предстоит познакомиться с пением разных птиц и попытаться угадать их все.</div><div>Начнем?</div>'
-        if (score.innerHTML > 29) {
-            resultMessage.innerHTML = `<div>Ого!</div><div>Вы великолепны и набрали ${score.innerHTML} из 30 возможных баллов</div>`;
-        }
-        if (score.innerHTML < 30 && score.innerHTML > 15 ) {
-            resultMessage.innerHTML = `<div>Поздравляем!</div><div>Вы прошли викторину и набрали ${score.innerHTML} из 30 возможных баллов</div>`;
-        }
-        if (score.innerHTML <= 15 ) {
-            resultMessage.innerHTML = `<div>Неплохо!</div><div>Вы прошли викторину и набрали ${score.innerHTML} из 30 возможных баллов</div><div>Попробуйте еще раз!</div>`;
-        }    }
-}
-
-function setLanguage() {
-    if (enLang.checked) {
-        localStorage.setItem('language', 'en');
-    }
-    if (ruLang.checked)  {
-        localStorage.setItem('language', 'ru');
-    }
-}
-
-function getLanguage() {
-    if (localStorage.getItem('language') === 'en') {
-        enLang.checked = 'true';
-    }
-    if (localStorage.getItem('language') === 'ru') {
-        ruLang.checked = 'true';
-    }
-}
-
-languageForm.addEventListener('input', () => {
-    setLanguage();
-    changeLanguage();
-});
-
-window.addEventListener('beforeunload', setLanguage);
-window.addEventListener('load', () => {
-    getLanguage();
-    changeLanguage();
-});
-
-if (!localStorage.getItem('language')) {
-    if (languageInputs[0].checked) localStorage.setItem('language', 'en');
-    if (languageInputs[1].checked) localStorage.setItem('language', 'ru');
-    changeLanguage();
-}
 
 // ---------- Burger menu ----------
 
