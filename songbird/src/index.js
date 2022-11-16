@@ -774,7 +774,13 @@ window.addEventListener('load', () => {
     changeLanguage();
 });
 
-changeLanguage();
+if (!localStorage.getItem('language')) {
+    console.log(111)
+    if (languageLabels[0].checked) localStorage.setItem('language', 'en');
+    if (languageLabels[1].checked) localStorage.setItem('language', 'ru');
+    changeLanguage();
+}
+
 
 // ---------- Burger menu ----------
 
