@@ -71,7 +71,7 @@ gameButton.addEventListener('click', () => {
         flyingBirds.style.display = 'none';
         flyingBirds.style.transform = 'translateX(150%)';
         flyingBirds.classList.remove('fly');
-    }, 3000); 
+    }, 2000); 
 });
 
 gameLink.addEventListener('click', () => {
@@ -538,10 +538,9 @@ function generateBirdCards(type, dataLang) {
             birdCardPlayButton[i].classList.remove('pause');
         }
 
-        const navList = document.querySelector('.nav-list');
-        navList.addEventListener('click', (event) => {
-            if (event.target.classList.contains('.nav-link')) pauseBirdCardAudio();
-        });
+        homeLink.addEventListener('click', pauseBirdCardAudio);
+        gameLink.addEventListener('click', pauseBirdCardAudio);
+        galleryLink.addEventListener('click', pauseBirdCardAudio);
 
         const birdMuteButtons = document.querySelectorAll('.bird-card-mute-button');
         const birdVolumes = document.querySelectorAll('.bird-card-volume');
