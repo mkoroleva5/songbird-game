@@ -129,6 +129,7 @@ const playButton = document.querySelector('.play');
 
 function playTrack() {
     if (!isPlay) {
+        pauseBirdSongAudio();
         audio.play();
         isPlay = true;
         playButton.classList.add('pause');
@@ -459,6 +460,7 @@ for (let i = 0; i < birdTypeLabels.length; i++) {
 
 function generateBirdCards(type, dataLang) {
     gallery.innerHTML = '';
+    let birdCardSongisPlay = [false, false, false, false, false, false];
     for (let i = 0; i < birdTypeInputs.length; i++) {
 
         let birdCard = document.createElement('div');
@@ -511,36 +513,38 @@ function generateBirdCards(type, dataLang) {
         birdCard.appendChild(birdCardSong);
         const birdCardAudio = document.querySelectorAll('.bird-card-audio');
         birdCardAudio[i].src = dataLang[type][i].audio;
+        birdCardAudio[i].classList.add(`audio${i}`);
         const birdCardTrackLength = document.querySelectorAll('.bird-card-track-length');
         birdCardTrackLength[i].textContent = dataLang[type][i].duration;
         const birdCardPlayButton = document.querySelectorAll('.bird-card-play');
-        let birdCardSongisPlay = false;
+        
+        
         birdCardPlayButton[i].addEventListener('click', () => {
-            if (!birdCardSongisPlay) {
+            if (!birdCardSongisPlay[i]) {
                 birdCardAudio[i].play();
-                birdCardSongisPlay = true;
+                birdCardSongisPlay[i] = true;
                 birdCardPlayButton[i].classList.add('pause');
-            } else if (birdCardSongisPlay) {
+            } else if (birdCardSongisPlay[i]) {
                 birdCardAudio[i].pause();
-                birdCardSongisPlay = false;
+                birdCardSongisPlay[i] = false;
                 birdCardPlayButton[i].classList.remove('pause');
             }
         });
         birdCardAudio[i].addEventListener('ended', () => {
             birdCardAudio[i].currentTime = 0;
-            birdCardSongisPlay = false;
+            birdCardSongisPlay[i] = false;
             birdCardPlayButton[i].classList.remove('pause');
         });
 
         function pauseBirdCardAudio() {
             birdCardAudio[i].pause();
-            birdCardSongisPlay = false;
+            birdCardSongisPlay[i] = false;
             birdCardPlayButton[i].classList.remove('pause');
         }
 
         homeLink.addEventListener('click', pauseBirdCardAudio);
         gameLink.addEventListener('click', pauseBirdCardAudio);
-        galleryLink.addEventListener('click', pauseBirdCardAudio);
+        galleryLink.addEventListener('click', pauseBirdCardAudio);     
 
         const birdMuteButtons = document.querySelectorAll('.bird-card-mute-button');
         const birdVolumes = document.querySelectorAll('.bird-card-volume');
@@ -593,13 +597,25 @@ function generateBirdCards(type, dataLang) {
                 else birdCardDescr.style.display = 'block';
             }
         });
-    }   
+    }
+    const birdCardAudio = document.querySelectorAll('.bird-card-audio');
+    const birdCardPlayButton = document.querySelectorAll('.bird-card-play');
+    for (let i = 0; i < birdCardPlayButton.length; i++) {
+        birdCardPlayButton[i].addEventListener('click', () => {
+            for (let j = 0; j < birdCardAudio.length; j++) {
+                if (!birdCardAudio[j].classList.contains(`audio${i}`)) {
+                    birdCardAudio[j].pause();
+                    birdCardSongisPlay[j] = false;
+                    birdCardPlayButton[j].classList.remove('pause');
+                }
+            }
+        })
+    }    
 }
 
 if (!localStorage.getItem('language')) generateBirdCards(0, birdsDataEn);
 if (localStorage.getItem('language') === 'en') generateBirdCards(0, birdsDataEn);
 if (localStorage.getItem('language') === 'ru') generateBirdCards(0, birdsData);
-
 
 // ---------- Bird-song player ----------
 
@@ -609,6 +625,9 @@ let birdSongisPlay = false;
 
 function playBirdTrack() {
     if (!birdSongisPlay) {
+        questionSong.pause();
+        isPlay = false;
+        playButton.classList.remove('pause');
         birdSongAudio.play();
         birdSongisPlay = true;
         birdPlayButton.classList.add('pause');
