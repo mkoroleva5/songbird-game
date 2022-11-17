@@ -319,6 +319,8 @@ nextLevelButton.addEventListener('click', () => {
             }
         } else {
             setTimeout(() => {
+                pauseQuestionAudio();
+                pauseBirdSongAudio();
                 gamePage.style.display = 'none';
                 resultsPage.style.display = 'flex';
                 if (localStorage.getItem('language') === 'en') {
@@ -725,6 +727,17 @@ for (let i = 0; i < languageLabels.length; i++) {
     });
 }
 
+const changeAnswers = (data) => {
+    for (let i = 0; i < answerLabels.length; i++) {
+        let dots = document.querySelectorAll('.dot');
+        for (let j = 0; j < answerInputs.length; j++) {
+            if (levelInputs[j].checked) {
+                answerLabels[i].innerHTML = `<div class="dot" style="background-color: ${dots[i].style.backgroundColor};"></div>${data[j][i].name}`;
+            }
+        }
+    }
+};
+
 function changeLanguage() {
     let lang = localStorage.getItem('language');
     if (lang === 'en') {
@@ -743,8 +756,8 @@ function changeLanguage() {
             birdTypeLabels[i].textContent = enLevels[i];
         }
         nextLevelButton.textContent = 'Next level';
-        createAnswers();
-        counter = 6;
+        changeAnswers(birdsDataEn);
+        taskDescription.innerHTML = '<p>1. Listen to the player</p><p>2. Select a bird from the list</p>';
         for (let i = 0; i < levelInputs.length; i++) {
             if (levelInputs[i].checked) {
                 questionSong.src = birdsDataEn[i][answer.id - 1].audio;
@@ -780,8 +793,8 @@ function changeLanguage() {
             birdTypeLabels[i].textContent = ruLevels[i];
         }
         nextLevelButton.textContent = 'Следующий уровень';
-        createAnswers();
-        counter = 6;
+        changeAnswers(birdsData);
+        taskDescription.innerHTML = '<p>1. Послушайте плеер</p><p>2. Выберите птицу из списка</p>';
         for (let i = 0; i < levelInputs.length; i++) {
             if (levelInputs[i].checked) {
                 questionSong.src = birdsData[i][answer.id - 1].audio;
