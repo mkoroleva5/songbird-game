@@ -38,6 +38,7 @@ homeLink.addEventListener('click', () => {
 gameButton.addEventListener('click', () => {
     pauseQuestionAudio();
     pauseBirdSongAudio();
+    counter = 6;
     document.title = 'Game | Songbird';
     flyingBirds.style.display = 'flex';
     flyingBirds.style.transform = 'translateX(150%)';
@@ -728,11 +729,18 @@ for (let i = 0; i < languageLabels.length; i++) {
 }
 
 const changeAnswers = (data) => {
-    for (let i = 0; i < answerLabels.length; i++) {
-        let dots = document.querySelectorAll('.dot');
-        for (let j = 0; j < answerInputs.length; j++) {
-            if (levelInputs[j].checked) {
-                answerLabels[i].innerHTML = `<div class="dot" style="background-color: ${dots[i].style.backgroundColor};"></div>${data[j][i].name}`;
+    if (questionName.innerHTML !== '???') questionName.innerHTML = answer.name;
+    for (let i = 0; i < levelInputs.length; i++) {
+        if (levelInputs[i].checked) {
+            let dots = document.querySelectorAll('.dot');
+            let birdName = document.querySelector('.bird-name');
+            let birdDescription = document.querySelector('.bird-description');
+            for (let j = 0; j < answerLabels.length; j++) {
+                answerLabels[j].innerHTML = `<div class="dot" style="background-color: ${dots[j].style.backgroundColor};"></div>${data[i][j].name}`;
+                if (answerInputs[j].checked) {
+                    birdName.innerHTML = data[i][j].name;
+                    birdDescription.innerHTML = data[i][j].description;
+                }
             }
         }
     }
@@ -756,8 +764,6 @@ function changeLanguage() {
             birdTypeLabels[i].textContent = enLevels[i];
         }
         nextLevelButton.textContent = 'Next level';
-        changeAnswers(birdsDataEn);
-        if (taskDescription.innerHTML !== '') taskDescription.innerHTML = '<p>1. Listen to the player</p><p>2. Select a bird from the list</p>';
         for (let i = 0; i < levelInputs.length; i++) {
             if (levelInputs[i].checked) {
                 questionSong.src = birdsDataEn[i][answer.id - 1].audio;
@@ -766,6 +772,8 @@ function changeLanguage() {
             }
             if (birdTypeInputs[i].checked) generateBirdCards(i, birdsDataEn);
         }
+        changeAnswers(birdsDataEn);
+        if (taskDescription.innerHTML !== '') taskDescription.innerHTML = '<p>1. Listen to the player</p><p>2. Select a bird from the list</p>';
         startDescription.innerHTML = `<div>Welcome to Songbird!</div><div>In this game you will have to get acquainted with the singing of different birds and try to guess them all.</div><div>Let's start?</div>`;
         if (score.innerHTML > 29) {
             resultMessage.innerHTML = `<div>Wow!</div><div>You did great and scored ${score.innerHTML} out of 30 possible points!</div>`;
@@ -793,8 +801,6 @@ function changeLanguage() {
             birdTypeLabels[i].textContent = ruLevels[i];
         }
         nextLevelButton.textContent = 'Следующий уровень';
-        changeAnswers(birdsData);
-        if (taskDescription.innerHTML !== '') taskDescription.innerHTML = '<p>1. Послушайте плеер</p><p>2. Выберите птицу из списка</p>';
         for (let i = 0; i < levelInputs.length; i++) {
             if (levelInputs[i].checked) {
                 questionSong.src = birdsData[i][answer.id - 1].audio;
@@ -803,6 +809,8 @@ function changeLanguage() {
             }
             if (birdTypeInputs[i].checked) generateBirdCards(i, birdsData);
         }
+        changeAnswers(birdsData);
+        if (taskDescription.innerHTML !== '') taskDescription.innerHTML = '<p>1. Послушайте плеер</p><p>2. Выберите птицу из списка</p>';
         startDescription.innerHTML = '<div>Добро пожаловать в игру Songbird!</div><div>В этой игре вам предстоит познакомиться с пением разных птиц и попытаться угадать их все.</div><div>Начнем?</div>';
         if (score.innerHTML > 29) {
             resultMessage.innerHTML = `<div>Ого!</div><div>Вы великолепны и набрали ${score.innerHTML} из 30 возможных баллов</div>`;

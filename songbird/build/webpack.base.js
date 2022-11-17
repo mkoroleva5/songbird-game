@@ -44,6 +44,10 @@ module.exports = {
             html5: true,
           },
         })
+        ,
+        new MiniCssExtractPlugin({
+          filename: 'main.css'
+        })
     ),
     [
       new FriendlyWebpackPlugin({
@@ -92,4 +96,9 @@ module.exports = {
       config: [path.join(__dirname, "../webpack.config.js")],
     },
   },
+  optimization: {
+    minimizer: [
+      new CssMinimizerPlugin(),
+    ],
+  }
 };
