@@ -78,6 +78,7 @@ gameButton.addEventListener('click', () => {
 gameLink.addEventListener('click', () => {
     pauseQuestionAudio();
     pauseBirdSongAudio();
+    counter = 6;
     document.title = 'Game | Songbird';
     homeLink.style.color = '#332c2c';
     gameLink.style.color = '#9dbd00';
@@ -87,6 +88,16 @@ gameLink.addEventListener('click', () => {
     galleryPage.style.display = 'none';
     gamePage.style.display = 'flex';
     gamePage.style.transform = 'translateX(0)';
+    levelInputs[0].checked = 'true';
+    levelLabels.forEach(item => item.style.backgroundColor = '#9dbd00');
+    levelLabels[0].style.backgroundColor = '#b7d428';
+    score.innerHTML = 0;
+    getRandomSong(0);
+    createAnswers();
+    for (let i = 0; i < answerInputs.length; i++) {
+        answerInputs[i].checked = false;
+    }
+    answersForm.addEventListener('input', selectAnswers);
 });
 
 galleryLink.addEventListener('click', () => {
@@ -757,7 +768,9 @@ function changeLanguage() {
         scoreText.textContent = 'Score:';
         gameButton.textContent = 'Play game!';
         restartButton.textContent = 'Play again';
-        pauseQuestionAudio();
+        questionSong.pause();
+        playButton.classList.remove('pause');
+        isPlay = false;
         pauseBirdSongAudio();
         for (let i = 0; i < levelLabels.length; i++) {
             levelLabels[i].textContent = enLevels[i];
@@ -766,8 +779,6 @@ function changeLanguage() {
         nextLevelButton.textContent = 'Next level';
         for (let i = 0; i < levelInputs.length; i++) {
             if (levelInputs[i].checked) {
-                questionSong.src = birdsDataEn[i][answer.id - 1].audio;
-                trackLength.textContent = birdsDataEn[i][answer.id - 1].duration;
                 answer = birdsDataEn[i].find(item => item.audio === birdsDataEn[i][answer.id - 1].audio);
             }
             if (birdTypeInputs[i].checked) generateBirdCards(i, birdsDataEn);
@@ -794,7 +805,9 @@ function changeLanguage() {
         scoreText.textContent = 'Очки:';
         gameButton.textContent = 'Играть!';
         restartButton.textContent = 'Играть снова';
-        pauseQuestionAudio();
+        questionSong.pause();
+        playButton.classList.remove('pause');
+        isPlay = false;
         pauseBirdSongAudio();
         for (let i = 0; i < levelLabels.length; i++) {
             levelLabels[i].textContent = ruLevels[i];
@@ -803,8 +816,6 @@ function changeLanguage() {
         nextLevelButton.textContent = 'Следующий уровень';
         for (let i = 0; i < levelInputs.length; i++) {
             if (levelInputs[i].checked) {
-                questionSong.src = birdsData[i][answer.id - 1].audio;
-                trackLength.textContent = birdsData[i][answer.id - 1].duration;
                 answer = birdsData[i].find(item => item.audio === birdsData[i][answer.id - 1].audio);
             }
             if (birdTypeInputs[i].checked) generateBirdCards(i, birdsData);
@@ -889,7 +900,6 @@ window.addEventListener('resize', () => {
         nav.style.transform = 'translateX(300%)';
     }
 })
-
 
 dark.addEventListener('click', () => {
     dark.style.display = 'none';

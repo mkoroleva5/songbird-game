@@ -308,6 +308,7 @@
 .game-section {
   display: none;
   width: 100%;
+  max-width: 1500px;
   height: 100%;
   padding: 20px 50px;
   flex-direction: column;
