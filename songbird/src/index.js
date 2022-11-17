@@ -757,7 +757,7 @@ function changeLanguage() {
         }
         nextLevelButton.textContent = 'Next level';
         changeAnswers(birdsDataEn);
-        taskDescription.innerHTML = '<p>1. Listen to the player</p><p>2. Select a bird from the list</p>';
+        if (taskDescription.innerHTML !== '') taskDescription.innerHTML = '<p>1. Listen to the player</p><p>2. Select a bird from the list</p>';
         for (let i = 0; i < levelInputs.length; i++) {
             if (levelInputs[i].checked) {
                 questionSong.src = birdsDataEn[i][answer.id - 1].audio;
@@ -794,7 +794,7 @@ function changeLanguage() {
         }
         nextLevelButton.textContent = 'Следующий уровень';
         changeAnswers(birdsData);
-        taskDescription.innerHTML = '<p>1. Послушайте плеер</p><p>2. Выберите птицу из списка</p>';
+        if (taskDescription.innerHTML !== '') taskDescription.innerHTML = '<p>1. Послушайте плеер</p><p>2. Выберите птицу из списка</p>';
         for (let i = 0; i < levelInputs.length; i++) {
             if (levelInputs[i].checked) {
                 questionSong.src = birdsData[i][answer.id - 1].audio;

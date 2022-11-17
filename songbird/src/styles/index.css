@@ -142,6 +142,7 @@
   align-items: center;
   width: 100%;
   margin: 50px;
+  padding: 20px;
   font-size: 18px;
   background: rgb(255,253,245);
   background: linear-gradient(145deg, rgba(255,253,245,1) 0%, rgba(255,247,233,1) 39%, rgba(255,242,230,1) 70%, rgba(255,239,236,1) 100%);
