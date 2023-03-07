@@ -1,0 +1,1219 @@
+@import "normalize.css";
+
+@font-face {
+  font-family: 'Nunito';
+  src: url("../assets/fonts/Nunito-Regular.ttf");
+ }
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 400;
+}
+
+.body {
+  width: 100%;
+  height: 100%;
+}
+
+.wrapper {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #332c2c;
+}
+
+.header,
+.footer {
+  width: 100%;
+  height: 80px;
+  padding: 20px;
+  display: flex;
+  flex: 0 0 auto;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  padding: 0 50px;
+  align-items: center;
+  background: rgb(255,253,245);
+  background: linear-gradient(145deg, rgba(255,253,245,1) 0%, rgba(255,247,233,1) 39%, rgba(255,242,230,1) 70%, rgba(255,239,236,1) 100%);
+}
+
+.header__menu {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 80px;  
+}
+
+.header__menu_button,
+.header__menu_burger,
+.dark {
+  display: none;
+}
+
+.logo {
+  width: 150px;
+  height: 70px;
+  background-image: url('../assets/logo.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  cursor: pointer;
+}
+
+.nav-list {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  gap: 80px;
+  padding: 0;
+  list-style: none;
+}
+
+.nav-link {
+  font-weight: 100;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.nav-link:hover {
+  color: #9dbd00;
+  cursor: pointer;
+}
+
+.nav-link:active {
+  color: #4B9200;
+}
+
+.header__widget {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.score-wrapper {
+  display: flex;
+  gap: 10px;
+}
+
+.language-form {
+  display: flex;
+  width: 80px;
+  height: 40px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.language-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 100%;
+  font-size: 14px;
+  text-align: center;
+  color: white;
+  background-color: #9dbd00;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.main {
+  width: 100%;
+  height: 83%;
+  display: flex;
+  flex: 1 0 auto;
+  justify-content: space-around;
+  background: rgb(255,223,153);
+  background: linear-gradient(145deg, rgb(238, 203, 233) 0%, rgb(238, 198, 216) 30%, rgba(255,190,190,1) 69%, rgb(255, 159, 188) 100%);
+  position: relative;
+  overflow-x: hidden;
+}
+
+.start-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 50px;
+  padding: 20px;
+  font-size: 18px;
+  background: rgb(255,253,245);
+  background: linear-gradient(145deg, rgba(255,253,245,1) 0%, rgba(255,247,233,1) 39%, rgba(255,242,230,1) 70%, rgba(255,239,236,1) 100%);
+  border-radius: 10px;
+  box-shadow: 16px 16px 18px -8px rgba(193, 125, 161, 0.3);
+  transition: 1s;
+}
+
+.flying-birds {
+  display: none;
+  position: absolute;
+  margin: 0 auto;
+  width: 60%;
+  height: 60%;
+  transform: translateX(150%);
+  background-image: url('../assets/bird-1.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.fly {
+  animation-name: fly;
+  animation-duration: 2s;
+}
+
+@keyframes fly {
+  0% {
+    transform: translateX(150%);
+    background-image: url('../assets/bird-1.png');
+  }
+  10% {
+    transform: translateX(120%);
+    background-image: url('../assets/bird-1.png');
+  }
+  20% {
+    transform: translateX(90%);
+    background-image: url('../assets/bird-2.png');
+  }
+  30% {
+    transform: translateX(60%);
+    background-image: url('../assets/bird-3.png');
+  }
+  40% {
+    transform: translateX(30%);
+    background-image: url('../assets/bird-4.png');
+  }
+  50% {
+    transform: translateX(0);
+    background-image: url('../assets/bird-5.png');
+  }
+  60% {
+    transform: translateX(-30%);
+    background-image: url('../assets/bird-6.png');
+  }
+  70% {
+    transform: translateX(-60%);
+    background-image: url('../assets/bird-7.png');
+  }
+  80% {
+    transform: translateX(-90%);
+    background-image: url('../assets/bird-8.png');
+  }
+  90% {
+    transform: translateX(-120%);
+    background-image: url('../assets/bird-8.png');
+  }
+  100% {
+    transform: translateX(-150%);
+    background-image: url('../assets/bird-8.png');
+  }
+
+}
+
+.flip {
+  transform: translateX(-120%);
+}
+
+.start-description {
+  display: flex;
+  flex-direction: column;
+  margin: 0 30px;
+  gap: 10px;
+  text-align: center;
+}
+
+.play-button,
+.restart-button {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 50px;
+  background-color: #9dbd00;
+  font-size: 22px;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 11px 11px 18px -8px rgba(193, 125, 161, 0.3);
+  cursor: pointer;
+  transition: 0.3s;
+  z-index: 10;
+}
+
+.play-button:hover,
+.restart-button:hover {
+  background-color:#b7d428;
+  transform: scale(1.03);
+}
+
+.play-button:active,
+.restart-button:active {
+  transform: scale(1);
+}
+
+.play-button:active .start-section {
+  transform: rotate(3000deg);
+}
+
+.button-wrapper {
+  position: relative;
+  margin-top: 40px;
+}
+
+.leaf-image {
+  position: absolute;
+  width: 20px;
+  height: 100px;
+  transition: 0.3s;
+  z-index: 0;
+}
+
+.leaf-image:nth-of-type(1),
+.leaf-image:nth-of-type(2) {
+  top: -41px;
+  left: -3px;
+  transform: rotate(116deg);
+}
+
+.leaf-image:nth-of-type(3),
+.leaf-image:nth-of-type(4) {
+  bottom: -41px;
+  right: 4px;
+  transform: rotate(-61deg);
+}
+
+.button-wrapper:hover .leaf-image:nth-of-type(1) {
+  transform: rotate(270deg);
+}
+
+.button-wrapper:hover .leaf-image:nth-of-type(2) {
+  transform: rotate(320deg);
+}
+
+.button-wrapper:hover .leaf-image:nth-of-type(3) {
+  transform: rotate(-230deg);
+}
+
+.button-wrapper:hover .leaf-image:nth-of-type(4) {
+  transform: rotate(-270deg);
+}
+
+.game-section {
+  display: none;
+  width: 100%;
+  max-width: 1500px;
+  height: 100%;
+  padding: 20px 50px;
+  flex-direction: column;
+  align-items: center;
+  transition: 1s;
+  transform: translateX(100%);
+}
+
+.game-wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.levels-wrapper {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 50px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 16px 16px 18px -8px rgba(193, 125, 161, 0.3);
+  overflow: hidden;
+}
+
+.levels-form {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.level-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 16.667%;
+  height: 100%;
+  padding: 0 5px;
+  font-size: 14px;
+  text-align: center;
+  color: white;
+  background-color: #9dbd00;
+  transition: 0.3s;
+}
+
+.level-input,
+.answer-input,
+.language-input {
+  display: none;
+}
+
+.question-wrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 130px;
+  margin-bottom: 20px;
+  padding: 20px 50px;
+  background: rgb(255,253,245);
+  background: linear-gradient(145deg, rgba(255,253,245,1) 0%, rgba(255,247,233,1) 39%, rgba(255,242,230,1) 70%, rgba(255,239,236,1) 100%);
+  border-radius: 10px;
+  box-shadow: 16px 16px 18px -8px rgba(193, 125, 161, 0.3);
+}
+
+.question-bird-image {
+  width: 110px;
+  height: 110px;
+  margin-right: 50px;
+  border-radius: 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-origin: border-box;
+}
+
+.question-bird-name {
+  width: 100%;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #d0d0d0;
+}
+
+.player-wrapper {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  margin-top: 10px;
+  gap: 20px;
+}
+
+.player {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.time-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 67%;
+  margin-right: 20px;
+}
+
+.timeline {
+  display: flex;
+  height: 7px;
+  width: 100%;
+  background-color: rgb(255, 255, 255, 0.8);
+  border-radius: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.progress-bar {
+  display: flex;
+  background: #9dbd00;
+  width: 0%;
+  height: 100%;
+  border-radius: 10px;
+  transition: 0.25s;
+}
+
+.track-time {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  font-size: 14px;
+}
+
+.controls {
+  display: flex;
+  flex-direction: row;
+}
+
+.player-icon {
+  width: 40px;
+  height: 40px;
+  background-size: 32px 32px;
+  background-position: left center;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  border: 0;
+  outline: 0;
+  filter: invert(63%) sepia(14%) saturate(1273%) hue-rotate(33deg) brightness(157%) contrast(137%);
+  cursor: pointer;
+  transition: 0.2s;  
+}
+
+.player-icon:hover {
+  transform: scale(1.05);
+}
+
+.player-icon:active {
+  border: 0;
+  outline: 0;  
+  transform: scale(1);
+}
+
+.play {
+  width: 60px;
+  height: 40px;
+  background-size: 40px 40px;
+  background-image: url("../assets/play.svg");
+}
+
+.pause {
+  background-image: url("../assets/pause.svg");
+}
+
+.volume-controls {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.mute-button {
+  margin-right: 5px;
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+  background-image: url("../assets/unmuted.png");
+}
+
+.muted {
+  background-image: url("../assets/muted.png");
+}
+
+.volume {
+  height: 5px;
+  width: 70px;
+  cursor: pointer;
+  opacity: 0;
+  background: rgb(255, 255, 255, 0.8);
+  border-radius: 3px;
+}
+
+.volume:hover,
+.timeline:hover {
+  background: rgb(255, 255, 255, 1);
+}
+
+.volume-percentage {
+  height: 100%;
+  width: 100%;
+  background: #9dbd00;
+  border-radius: 3px;
+}
+
+.block-wrapper {
+  display: flex;
+  width: 100%;
+  height: 300px;
+  gap: 20px;
+}
+
+.answers-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 50%;
+  height: 100%;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 16px 16px 18px -8px rgba(193, 125, 161, 0.3);
+  overflow: hidden;
+}
+
+.answers-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 1.6px;
+  width: 100%;
+  height: 100%;
+}
+
+.answer-label {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding-left: 20px;
+  font-size: 14px;
+  text-align: center;
+  background-color: rgb(255,253,245);
+  background-image: linear-gradient(145deg, rgba(255,253,245,1) 0%, rgba(255,247,233,1) 39%, rgba(255,242,230,1) 70%, rgba(255,239,236,1) 100%);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  margin-right: 15px;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.bird-description-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+  height: 100%;
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  background: rgb(255,253,245);
+  background: linear-gradient(145deg, rgba(255,253,245,1) 0%, rgba(255,247,233,1) 39%, rgba(255,242,230,1) 70%, rgba(255,239,236,1) 100%);
+  border-radius: 10px;
+  box-shadow: 16px 16px 18px -8px rgba(193, 125, 161, 0.3);
+}
+
+.bird-info-wrapper {
+  display: flex;
+  width: 100%;
+  height: 150px;
+  margin-bottom: 10px;
+}
+
+.bird-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-origin: border-box;
+}
+
+.bird-name-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 64%;
+  height: 100%;
+  padding: 20px;
+}
+
+.bird-name,
+.bird-latin-name {
+  height: 30px;
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+}
+
+.bird-latin-name {
+  font-size: 14px;
+}
+
+.bird-description {
+  width: 100%;
+  height: 40%;
+  color: #332c2c;
+}
+
+.bird-audio {
+  width: 260px;
+  height: 30px;
+}
+
+.bird-song > .player {
+  flex-wrap: wrap;
+}
+
+.bird-song > .player > .play {
+  width: 40px;
+  background-size: 30px 30px;
+}
+
+.bird-song > .player > .time-bar {
+  margin: 0;
+  width: 82%;
+}
+
+.bird-song > .player > .time-bar > .track-time {
+  font-size: 12px;
+  gap: 2px;
+}
+
+.bird-song > .player > .controls > .volume-controls > .mute-button {
+  margin: 0;
+  background-size: 15px 15px;
+}
+
+.bird-song > .player > .controls > .volume-controls > .volume {
+  height: 4px;
+}
+
+.next-level-button {
+  width: 100%;
+  height: 50px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  background-color: #d0d0d0;
+  transition: 0.3s;
+}
+
+.active {
+  cursor: pointer;
+  background-color: #9dbd00;
+}
+.active:hover {
+  background-color: #b7d428;
+}
+
+.gallery-section {
+  width: 100%;
+  height: 100%;
+  margin: 20px;
+  display: none;
+}
+
+.bird-types-form {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  height: 300px;
+  margin-right: 30px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.bird-type-label {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding-left: 20px;
+  font-size: 14px;
+  color: white;
+  background-color: #9dbd00;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.bird-type-input {
+  display: none;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: 250px 250px 250px; 
+  grid-template-rows: 270px 270px; 
+  gap: 20px;
+}
+
+.bird-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  gap: 10px;
+  border-radius: 10px;
+  background: rgb(255,253,245);
+  background: linear-gradient(145deg, rgba(255,253,245,1) 0%, rgba(255,247,233,1) 39%, rgba(255,242,230,1) 70%, rgba(255,239,236,1) 100%);
+  box-shadow: 16px 16px 18px -8px rgba(193, 125, 161, 0.3);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.bird-card:hover {
+  transform: scale(1.03);
+}
+
+.bird-card > .bird-image {
+  width: 120px;
+  height: 120px;
+}
+
+.bird-card > .bird-name,
+.bird-card > .bird-latin-name {
+  height: 20px;
+  margin-bottom: 0px;
+  padding-bottom: 2px;
+}
+
+.bird-song > .player > .bird-card-time-bar {
+  width: 76%;
+}
+
+.bird-card-active {
+  width: 790px;
+  height: 560px;
+  align-items: flex-start;
+  padding: 30px;
+  position: absolute;
+  transition: 0.3s;
+  z-index: 10;
+  transition: 0.2s;
+}
+
+.bird-card-active > .bird-image {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+}
+
+.bird-card-active > .bird-name,
+.bird-card-active > .bird-latin-name,
+.bird-card-active > .bird-song {
+  margin-bottom: 10px;
+  margin-left: 230px;
+}
+
+.bird-card-active > .bird-song {
+  width: 60%;
+}
+
+.bird-card-active > .bird-song > .player > .time-bar > .track-time {
+  margin-right: 10px;
+}
+
+.bird-card-active > .bird-description {
+  margin-top: 80px;
+}
+
+.results-section {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background: rgb(255,253,245);
+  background: linear-gradient(145deg, rgba(255,253,245,1) 0%, rgba(255,247,233,1) 39%, rgba(255,242,230,1) 70%, rgba(255,239,236,1) 100%);
+  margin: 50px 100px;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 16px 16px 18px -8px rgba(193, 125, 161, 0.3);
+}
+
+.result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  font-size: 18px;
+  text-align: center;
+}
+
+.footer {
+  height: 50px;
+  justify-content: space-around;
+}
+
+.footer__data,
+.footer__link {
+  color: #332c2c;
+  font-size: 14px;
+  font-weight: 100;
+  transition: 0.2s;
+}
+
+.footer__link:hover {
+  transform: translateY(-3px);
+}
+
+@media (max-width: 1150px) {
+
+  .flying-birds {
+    width: 500px;
+    height: 500px;
+  }
+
+  .bird-description-wrapper {
+    width: 80%;
+  }
+
+  .bird-description {
+    font-size: 14px;
+  }
+  
+}
+
+@media (max-width: 1050px) {
+
+  .header__menu {
+    gap: 50px;  
+  }
+
+  .question-wrapper {
+    height: 100px;
+  }
+
+  .question-bird-image {
+    width: 90px;
+    height: 90px;
+  }
+  
+  .player-wrapper {
+    gap: 10px;
+  }
+
+  .gallery {
+    grid-template-columns: 200px 200px 200px; 
+    grid-template-rows: 230px 230px; 
+    gap: 10px;
+  }
+
+  .bird-card-active {
+    width: 620px;
+    height: 470px;
+  }
+
+  .bird-card {
+    gap: 2px;
+  }
+
+  .bird-card > .bird-image {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 4px;
+  }
+
+  .bird-card-active > .bird-image {
+    width: 200px;
+    height: 200px;
+  }
+
+}
+
+@media (max-width: 900px) {
+  .bird-types-form {
+    margin-right: 10px;
+  }
+}
+
+@media (max-width: 850px) {
+
+  .header__menu {
+    gap: 30px;
+  }
+
+  .nav-list {
+    gap: 30px;
+  }
+
+  .bird-song > .player > .time-bar {
+    width: 75%;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  .bird-image {
+    width: 120px;
+    height: 120px;
+  }
+
+  .bird-types-form {
+    margin: 0 10px;
+  }
+
+  .bird-type-label {
+    padding-left: 10px;
+  }
+
+  .gallery {
+    grid-template-columns: 200px 200px;
+    grid-template-rows: 230px 230px 230px;
+    margin: 0 10px auto;
+  }
+
+  .bird-card-active {
+    width: 410px;
+    height: 710px;
+    align-items: center;
+  }
+
+  .bird-card-active > .bird-image {
+    position: initial;
+    width: 150px;
+    height: 150px;
+    margin-bottom: 20px;
+  }
+
+  .bird-card-active > .bird-name,
+  .bird-card-active > .bird-latin-name,
+  .bird-card-active > .bird-song {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .bird-card-active > .bird-description {
+    margin-top: 10px;
+  }
+
+}
+
+@media (max-width: 700px) {
+
+  .nav-list {
+    gap: 15px;
+  }
+
+  .question-wrapper {
+    height: 130px;
+    padding: 0 20px;
+  }
+
+  .question-bird-image {
+    margin-right: 20px;
+  }
+
+  .player-wrapper {
+    width: 75%;
+  }
+
+  .player-wrapper > .player {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .player-wrapper > .player > .play {
+    width: 40px;
+  }
+
+  .player-wrapper > .player > .time-bar {
+    width: 63%;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  .block-wrapper {
+    flex-direction: column;
+    height: 100%;
+    gap: 0;
+  }
+
+  .answers-wrapper {
+    width: 100%;
+  }
+
+  .answer-label {
+    height: 35px;
+  }
+
+  .bird-description-wrapper {
+    width: 100%;
+    height: 270px;
+  }
+
+  .next-level-button {
+    margin-top: 0;
+  }
+
+}
+
+@media (max-width: 650px) {
+
+  .dark {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(51, 44, 44, 0.5);
+    z-index: 11;
+  }  
+
+  .header {
+    padding: 0 20px;
+  }
+
+  .header__menu_burger {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 200px;
+    height: 200px;
+    padding: 20px;
+    border-radius: 10px;
+    background: rgb(255,253,245);
+    background: linear-gradient(145deg, rgba(255,253,245,1) 0%, rgba(255,247,233,1) 39%, rgba(255,242,230,1) 70%, rgba(255,239,236,1) 100%);
+    box-shadow: -16px 16px 18px -8px rgba(193, 125, 161, 0.3);
+    z-index: 100;
+    transform: translateX(150%);
+    transition: 0.5s;
+  }
+
+  .header__menu_button {
+    display: block;
+    position: relative;
+    width: 22px;
+    height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .header__menu_button span,
+  .header__menu_button span::before,
+  .header__menu_button span::after {
+    display: block;
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 2.5px;
+    background-color: #9dbd00;
+    border-radius: 10px;
+  }
+
+  .header__menu_button span::before {
+    top: 6px;
+  }
+
+  .header__menu_button span::after {
+    top: 12px;
+  }
+
+  .nav {
+    position: fixed;
+    top: 20px;
+    right: 100px;
+    z-index: 1000;
+    transform: translateX(300%);
+    transition: 0.3s;
+  }
+
+  .nav-list {
+    flex-direction: column;
+  }
+
+  .burger__close-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 17px;
+    height: 17px;
+    cursor: pointer;
+  }
+
+  .close-line {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background-color: #9dbd00;
+    border-radius: 20px;
+    position: absolute;
+    top: 50%;
+  }
+
+  .close-line:nth-child(1) {
+    transform: translateY(-50%) rotate(45deg);
+  }
+
+  .close-line:nth-child(2) {
+    transform: translateY(-50%) rotate(-45deg);
+  }
+  
+
+}
+
+@media (max-width: 560px) {
+
+  .gallery {
+    grid-template-columns: 300px;
+    grid-template-rows: 230px 230px 230px 230px 230px 230px;
+  }
+
+  .bird-card-active {
+    width: 300px;
+    height: 1410px;
+    padding: 20px;
+  }
+
+  .bird-card:hover {
+    transform: scale(1.02);
+  }
+
+}
+
+@media (max-width: 610px) {
+
+  .game-section {
+    padding: 20px 10px;
+  }
+
+  .game-wrapper {
+    height: 230px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .levels-wrapper {
+    width: 150px;
+    height: 100%;
+  }
+
+  .levels-form {
+    flex-direction: column;
+  }
+
+  .level-label {
+    width: 100%;
+    justify-content: flex-start;
+    text-align: start;
+  }
+
+  .question-wrapper {
+    height: 100%;
+    flex-direction: column;
+    padding: 10px 20px;
+  }
+
+  .question-bird-name {
+    text-align: center;
+  }
+
+  .player-wrapper {
+    width: 100%;
+  }
+  
+}
+
+@media (max-width: 450px) {
+
+  .bird-description-wrapper {
+    height: 300px;
+  } 
+
+  .bird-latin-name {
+    height: 35px;
+  }
+
+  
+  .bird-song > .player > .time-bar {
+    width: 72%;
+  }
+
+
+  .gallery {
+    grid-template-columns: 210px;
+    grid-template-rows: 230px 230px 230px 230px 230px 230px;
+  }
+
+  .bird-card-active {
+    width: 210px;
+    height: 1410px;
+  }
+
+  .logo {
+    width: 100px;
+  }
+}

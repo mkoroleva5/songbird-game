@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "useUnknownInCatchVariables": false,
+    "useDefineForClassFields": true,
+    "allowJs": false,
+    "esModuleInterop": false,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "rootDir": "src",
+    "outDir": "dist",
+    "sourceMap": true,
+    "target": "ESNext",
+    "noImplicitAny": true,
+    "module": "ESNext",
+    "strict": true,
+    "noEmit": true,
+    "moduleResolution": "Node",
+    "resolveJsonModule": true,
+    "isolatedModules": false,
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["custom.d.ts"],
+  "exclude": ["./src/**/*", "node_modules"],
+  "references": [{ "path": "./tsconfig.node.json" }],
+  "compileOnSave": false
+}
